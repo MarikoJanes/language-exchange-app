@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
  
-  get '/hello', to: 'application#hello_world'
+ # login
+  post "/login", to: "sessions#login"
+
+  # stay looged in
+  get "/authorized_user", to: "sessions#show"
+
+  # logout
+  delete "logout", to: "sessions#logout"
+
+  get '*path',
+      to: 'fallback#index',
+      constraints: ->(req) { !req.xhr? && req.format.html? }
 
 end
