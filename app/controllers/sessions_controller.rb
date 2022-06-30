@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     end
 
     def login 
-        user = User.find+by(name: params[name])
+        user = User.find_by(name: params[:name])
         if user&.authenticate(params[:password])
             session[:current_user] = user.id
             session[:login_attempts] = 0

@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
  
   resources :users, only: [:index, :show, :create, :update]
- # login
   post "/login", to: "sessions#login"
 
   # stay looged in

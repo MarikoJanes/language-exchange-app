@@ -11,7 +11,7 @@ function Signup({ setUser, setIsAuthenticated }) {
     const history = useHistory();
 
     function handleSubmit(e) {
-        e.prevent.default();
+        e.preventDefault();
         const user = {
             name: username,
             email,
@@ -30,6 +30,8 @@ function Signup({ setUser, setIsAuthenticated }) {
             if(res.ok) {
                 res.json()
                 .then(user => {
+                    setIsAuthenticated(true);
+                    setUser(user);
                     history.push("/settings");
                 })
             } else {

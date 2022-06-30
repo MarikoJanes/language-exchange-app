@@ -25,7 +25,9 @@ function App() {
         setUser(null);
       }
     })
-  }, [])
+  }, [setUser])
+
+  console.log(user);
 
   return (
     <BrowserRouter>
@@ -37,8 +39,8 @@ function App() {
           <Route exact path="/login">
             <Login setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>
           </Route>
-          <Route exact path="settings">
-            <Profile />
+          <Route exact path="/settings">
+            <Profile user={user} />
           </Route>
           <Route exact path="/mypage">
             <Mypage user={user}/>

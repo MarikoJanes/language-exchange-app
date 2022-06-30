@@ -10,7 +10,7 @@ function Login({ setUser, setIsAuthenticated }) {
   const history = useHistory();
 
   function handleSubmit(e) {
-    e.prevent.default();
+    e.preventDefault();
     const user = {
       name: username,
       password
