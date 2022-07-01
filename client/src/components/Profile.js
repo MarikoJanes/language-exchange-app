@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 
 function Profile({ user, setUser }) {
   const [userData, setUserData] = useState({});
-  const [profileImage, setProfileImage] = useState("../images/placeholder.png")
 
   const history = useHistory();
 
@@ -23,7 +22,6 @@ function Profile({ user, setUser }) {
     const url = URL.createObjectURL(e.target.files[0]);
     
     console.log(url);
-    setProfileImage(url);
     setUserData({...userData, profile_image_url: url});
   }
 
@@ -70,7 +68,8 @@ function Profile({ user, setUser }) {
           <br></br>
         <label>profile image:</label>
         <div >
-          <img className="image-goes" src={profileImage} alt="profile-photo" />
+          <img className="image-goes" src={userData === "" ? "../images/placeholder.png" : userData.profile_image_url}
+           alt="profile-photo" />
         </div>
         <input type="file" onChange={uploadFile} />
           <br></br>
