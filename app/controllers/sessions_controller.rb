@@ -1,11 +1,6 @@
 class SessionsController < ApplicationController
     before_action :is_authorized?, except: [:login]
 
-    def show 
-        user = User.find_by(id: session[:current_user])
-        render json: user
-    end
-
     def login 
         user = User.find_by(name: params[:name])
         if user&.authenticate(params[:password])

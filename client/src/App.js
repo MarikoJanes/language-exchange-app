@@ -25,7 +25,7 @@ function App() {
         setUser(null);
       }
     })
-  }, [setUser])
+  }, [])
 
   console.log(user);
 
@@ -40,7 +40,7 @@ function App() {
             <Login setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>
           </Route>
           <Route exact path="/settings">
-            <Profile user={user} />
+            <Profile user={user} setUser={setUser} />
           </Route>
           <Route exact path="/mypage">
             <Mypage user={user}/>

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :is_authorized?, except: [:create, :index]
+    before_action :is_authorized?, except: [:create, :index, :destroy]
 
     def index 
         render json: User.all
@@ -12,7 +12,11 @@ class UsersController < ApplicationController
 
     def create 
         user = User.create!(user_params)
-        render json: user, status: :created
+        if user.valid?
+            session[:current_user] = user.id
+            render json: user, status: :created
+        end
+
     end
 
     def update 
@@ -21,11 +25,11 @@ class UsersController < ApplicationController
         render json: user, status: :accepted
     end
 
-    # def destroy 
-    #     user = User.find(params[:id])
-    #     user.destroy
-    #     head :no_content
-    # end
+    def destroy 
+        user = User.find(params[:id])
+        user.destroy
+        head :no_content
+    end
 
     private 
 

@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
  
-  resources :users, only: [:index, :show, :create, :update]
+  resources :users, only: [:index, :show, :create, :update, :destroy]
+
+  post "/signup", to: "users#create"
   post "/login", to: "sessions#login"
 
   # stay looged in
-  get "/authorized_user", to: "sessions#show"
+  get "/authorized_user", to: "users#show"
 
   # logout
   delete "logout", to: "sessions#logout"

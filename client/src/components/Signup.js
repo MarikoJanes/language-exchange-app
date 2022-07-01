@@ -6,6 +6,7 @@ function Signup({ setUser, setIsAuthenticated }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
+    
 
     const [errors, setErrors] = useState([]);
     const history = useHistory();
@@ -16,7 +17,9 @@ function Signup({ setUser, setIsAuthenticated }) {
             name: username,
             email,
             password,
-            password_confirmation: passwordConfirmation
+            password_confirmation: passwordConfirmation,
+            city: "",
+            profile_image_url: ""
         }
 
         fetch("/users", {
