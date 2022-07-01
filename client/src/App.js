@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import TitlePage from "./components/TitlePage";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
@@ -30,7 +30,7 @@ function App() {
   console.log(user);
 
   return (
-    <BrowserRouter>
+    <>
         <NavBar setIsAuthenticated={setIsAuthenticated} setUser={setUser} isAuthenticated={isAuthenticated}/>
         <Switch>
           <Route exact path="/signup">
@@ -49,7 +49,7 @@ function App() {
             <TitlePage user={user} />
           </Route>
         </Switch>
-    </BrowserRouter>
+    </>
   );
 }
 
