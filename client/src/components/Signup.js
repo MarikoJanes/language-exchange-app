@@ -18,8 +18,8 @@ function Signup({ setUser, setIsAuthenticated }) {
             email,
             password,
             password_confirmation: passwordConfirmation,
-            city: "",
-            profile_image_url: ""
+            city: ""
+            // profile_image_url: ""
         }
 
         fetch("/users", {

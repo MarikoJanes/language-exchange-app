@@ -3,6 +3,7 @@ Language.destroy_all
 l1 = Language.create(name: "Arabic")
 l2 = Language.create(name: "Bengali")
 l3 = Language.create(name: "Chinese")
+l3_1 = Language.create(name: "English")
 l4 = Language.create(name: "French")
 l5 = Language.create(name: "German")
 l6 = Language.create(name: "Hausa")

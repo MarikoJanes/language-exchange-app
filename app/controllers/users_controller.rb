@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     end
 
     def destroy 
-        user = User.find(params[:id])
+        user = User.find_id(id: session[:current_user])
         user.destroy
         head :no_content
     end
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     private 
 
     def user_params 
-        params.permit(:name, :email, :password, :password_confirmation, :city, :profile_image_url)
+        params.permit(:id, :name, :email, :password, :password_confirmation, :city, :profile_image_url)
     end
 
 end

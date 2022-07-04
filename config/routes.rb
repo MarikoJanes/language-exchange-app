@@ -2,6 +2,8 @@ Rails.application.routes.draw do
  
   resources :users, only: [:index, :show, :create, :update, :destroy]
   resources :languages, only: [:index]
+  resources :language_to_learns, only: [:index, :show, :create, :destroy]
+  resources :language_to_teaches, only: [:index, :show, :create, :destroy] 
 
 
   post "/signup", to: "users#create"
