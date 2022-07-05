@@ -26,6 +26,9 @@ function NavBar({setIsAuthenticated, setUser }) {
       <NavLink to="/login">Login</NavLink>
     </div>
     <div>
+      <NavLink to="/mypage">Mypage</NavLink>
+    </div>
+    <div>
       <button onClick={handleLogout} >Logout</button>
     </div>
     </>

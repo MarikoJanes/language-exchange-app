@@ -6,7 +6,8 @@ import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import Profile from "./components/Profile";
 import Mypage from "./components/Mypage";
-import SearchResult from "./components/SearchResult";
+import LearnSearchResult from "./components/LearnSearchResult";
+import TeachSearchResult from "./components/TeachSearchResult";
 
 
 
@@ -45,8 +46,11 @@ function App() {
           <Route exact path="/mypage">
             <Mypage user={user}/>
           </Route>
-          <Route exact path="/search/:searchedTerm">
-            <SearchResult />
+          <Route exact path="/search/learners/:searchedTerm">
+            <LearnSearchResult />
+          </Route>
+          <Route exact path="/search/teachers/:searchedTerm">
+            <TeachSearchResult />
           </Route>
           <Route exact path="/">
             <TitlePage user={user} />

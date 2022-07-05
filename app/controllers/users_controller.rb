@@ -42,7 +42,6 @@ class UsersController < ApplicationController
     def teach_search 
         lang = params[:searchedTeachLang].capitalize()
         lang_id = Language.find_by(name: lang).id
-
         result = User.joins(:language_to_teaches).where(language_to_teaches: {language_id: lang_id})
         render json: result
     end
@@ -55,3 +54,5 @@ class UsersController < ApplicationController
     end
 
 end
+
+
