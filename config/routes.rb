@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :language_to_learns, only: [:index, :show, :create, :destroy]
   resources :language_to_teaches, only: [:index, :show, :create, :destroy] 
 
+  get "/search/:searchedLearnLang", to: "users#learn_search"
+  get "/search/:searchedTeachLang", to: "users#teach_search"
+
 
   post "/signup", to: "users#create"
   post "/login", to: "sessions#login"

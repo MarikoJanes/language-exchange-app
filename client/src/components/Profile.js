@@ -93,6 +93,10 @@ function Profile({ user, setUser }) {
     });
   }
 
+  function handleJumpPage() {
+    history.push("/mypage");
+  }
+
   if(userData == null || (languages === null || languages.length === 0)) return <h2>Loading...</h2>
 
   return (
@@ -147,7 +151,7 @@ function Profile({ user, setUser }) {
         />
           <br></br>
 
-    
+      <button onClick={handleJumpPage} >Go back to mypage</button>
 
 
 

@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
     before_action :is_authorized?, except: [:create, :index, :destroy]
 
-    def index 
-        render json: User.all
+    def index
+        render json: User.all, include: ["language_to_learns", "language_to_teaches"]
     end
 
     def show 
@@ -30,6 +30,23 @@ class UsersController < ApplicationController
         user.destroy
         head :no_content
     end
+
+    def learn_search 
+        lang = params[:searchedLearnLang].capitalize()
+        lang_id = Language.find_by(name: lang).id
+
+        result = User.joins(:language_to_learns).where(language_to_learns: {language_id: lang_id})
+        render json: result
+    end
+
+    def teach_search 
+        lang = params[:searchedTeachLang].capitalize()
+        lang_id = Language.find_by(name: lang).id
+
+        result = User.joins(:language_to_teaches).where(language_to_teaches: {language_id: lang_id})
+        render json: result
+    end
+
 
     private 
 
