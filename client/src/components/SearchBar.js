@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 
 function SearchBar() {
     const [search, setSearch] = useState("");
+    const [isSeletected, setIsSeletected] = useState(false); //false => learn, true => teach
     const history = useHistory();
 
     function handleInput(e) {

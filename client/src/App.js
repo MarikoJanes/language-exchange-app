@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import Profile from "./components/Profile";
 import Mypage from "./components/Mypage";
+import SearchResult from "./components/SearchResult";
 
 
 
@@ -43,6 +44,9 @@ function App() {
           </Route>
           <Route exact path="/mypage">
             <Mypage user={user}/>
+          </Route>
+          <Route exact path="/search/:searchedTerm">
+            <SearchResult />
           </Route>
           <Route exact path="/">
             <TitlePage user={user} />
