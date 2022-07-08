@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import ChatList from './ChatList';
 import SearchBar from './SearchBar';
 
 
@@ -36,6 +37,7 @@ function Mypage({  }) {
           </ul>
         <button><Link to="/settings" >go settings</Link></button>
       </div>
+      <ChatList userData={userData} />
     </>
   )
 }

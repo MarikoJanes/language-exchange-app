@@ -1,8 +1,10 @@
 import React from 'react'
 
-function TitlePage() {
+function TitlePage({ user }) {
   return (
-    <div>TitlePage</div>
+    <div>
+      <h1>Hello</h1>
+    </div>
   )
 }
 

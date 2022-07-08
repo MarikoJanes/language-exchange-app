@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import UserCard from './UserCard';
 
 
-function LearnSearchResult() {
+function LearnSearchResult({ user }) {
     const { searchedTerm } = useParams();
     const [searchResult, setSearchResult] = useState([]);
     const temp = searchedTerm.charAt(0).toUpperCase() + searchedTerm.slice(1);
@@ -20,7 +20,7 @@ console.log(searchResult)
         <h2>Search results for "{temp}": </h2>
         {searchResult.length > 0 ? 
             searchResult.map((result, index) => {
-                return <UserCard key={index} result={result} />
+                return <UserCard key={index} result={result} user={user} />
             }) : <h2>Users not found</h2>}
     </div>
   )
