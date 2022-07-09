@@ -10,7 +10,6 @@ class ChatroomsController < ApplicationController
     end
 
     def create
-        byebug
         chatroom = Chatroom.create!(chatroom_params)
         #serialized_data = ActiveModelSerializers::Adapter::Json.new(
         #    ChatroomSerializer.new(chatroom)

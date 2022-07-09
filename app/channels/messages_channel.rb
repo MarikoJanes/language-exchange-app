@@ -6,9 +6,7 @@ class MessagesChannel < ApplicationCable::Channel
 
   def receive(data)
     puts("received the message")
-    #puts params
     puts data
-    puts("that was params")
     
     # chatroom = Chatroom.find_by(id: data["conversation_id"])
     user = User.find_by(id: data["sender_id"])
@@ -25,7 +23,6 @@ class MessagesChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
     stop_all_streams
   end
 
