@@ -9,21 +9,23 @@ function ChatScreen( {user} ) {
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
   const [channel, setChannel] = useState(null);
+  const [chat, setChat] = useState([]);
   const cable = useContext(ActionCableContext);
   
   useEffect(() => {
-    fetch(`/conversations/${id}`)
+    fetch(`/chatrooms/${id}`)
     .then(res => res.json())
-    .then(data => setMessages(data.messages))
-  }, [setMessages])
+    .then(data => setChat(data))
+  }, [])
 
-  console.log(messages);
+  console.log(chat);
 
   useEffect(() => {
-    
+    if(chat.id) {
     const channel = cable.subscriptions.create({
       channel: "MessagesChannel",
-      id: parseInt(id)
+      user_id: user.id,
+      recipient_id: chat.partner_id
     },
     {
       received: (data) => {
@@ -32,18 +34,20 @@ function ChatScreen( {user} ) {
       }
       
   });
-
+    
     setChannel(channel);
+
 
     return () => {
       channel.unsubscribe();
     }
 
-  }, [id, cable.subscriptions]);
+  }}, [id, cable.subscriptions]);
 
   function sendMessages(content) {
     // needs to have sender and receipient Ids
-    const data = { conversation_id: parseInt(id), user_id: user.id, content:content };
+    // const data = { conversation_id: parseInt(id), user_id: user.id, content:content };
+    const data = { sender_id: user.id, recipient_id: chat.partner_id, content:content}
     channel.send(data);
     console.log("sent ", data);
   }
@@ -63,10 +67,10 @@ function ChatScreen( {user} ) {
       </div>
       <div>
         <ul>
-          {messages.length > 0 ? 
+          {/* {messages.length > 0 ? 
             messages.map((message) => {
               return <li key={messages.id}>{message.content} sent by {message.user_id}</li>
-            }) : null}
+            }) : null} */}
         </ul>
       </div>
       <form onSubmit={handleSubmit} >

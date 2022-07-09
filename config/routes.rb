@@ -2,7 +2,7 @@ Rails.application.routes.draw do
  
   resources :messages
   resources :chatrooms
-  resources :conversations
+  # resources :conversations
   resources :users, only: [:index, :show, :create, :update, :destroy]
   resources :languages, only: [:index]
   resources :language_to_learns, only: [:index, :show, :create, :destroy]

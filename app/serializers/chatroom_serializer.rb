@@ -1,5 +1,5 @@
 class ChatroomSerializer < ActiveModel::Serializer
-  attributes :id, :last_read_at
+  attributes :id, :user_id, :partner_id, :paired
   has_one :user
   # has_one :conversation
 end

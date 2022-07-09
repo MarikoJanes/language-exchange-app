@@ -29,10 +29,10 @@
                     <mxGeometry x="350" y="155" width="145" height="115" as="geometry"/>
                 </mxCell>
                 <mxCell id="10" value="chatroom&lt;br&gt;-id&lt;br&gt;-user_id&lt;br&gt;-partner_id&lt;br&gt;-paired:boolean" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="60" y="370" width="259" height="190" as="geometry"/>
+                    <mxGeometry x="80" y="370" width="259" height="190" as="geometry"/>
                 </mxCell>
                 <mxCell id="11" value="messages&lt;br&gt;-id&lt;br&gt;sender_id&lt;br&gt;recipient_id&lt;br&gt;content&lt;br&gt;-paired:boolean" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="370" y="385" width="260" height="160" as="geometry"/>
+                    <mxGeometry x="460" y="390" width="260" height="160" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

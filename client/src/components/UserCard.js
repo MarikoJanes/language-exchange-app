@@ -6,15 +6,18 @@ function UserCard({ result, user }) {
 
 
   function handleClick(e) {
-    // const partnerId = parseInt(e.target.parentElement.id);
+    const partnerId = parseInt(e.target.parentElement.id);
     // const userIds = [user.id, partnerId];
 
-    fetch("/conversations", {
+    fetch("/chatrooms", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
-      }
-      
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        partner_id: partnerId
+      })
     })
     .then( res => res.json())
     .then( data => {
@@ -22,6 +25,7 @@ function UserCard({ result, user }) {
       history.push(`/chatrooms/${data.id}`);
     })
   }
+
   return (
     <div id={result.id}>
         <img className='image-goes' src={result.profile_image_url} alt="profile" />
