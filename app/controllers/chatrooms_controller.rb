@@ -9,15 +9,16 @@ class ChatroomsController < ApplicationController
         render json: chatroom 
     end
 
-    def create 
+    def create
+        byebug
         chatroom = Chatroom.create!(chatroom_params)
-        serialized_data = ActiveModelSerializers::Adapter::Json.new(
-            ChatroomSerializer.new(chatroom)
-        ).serializable_hash
-        ActionCable.server.broadcast "messages_channel", serialized_data
-        head :ok
+        #serialized_data = ActiveModelSerializers::Adapter::Json.new(
+        #    ChatroomSerializer.new(chatroom)
+        #).serializable_hash
+        #ActionCable.server.broadcast "messages_channel", serialized_data
+        #head :ok
 
-        # render json: conversation, status: :created
+        render json: chatroom, status: :created
     end
 
     def destroy 

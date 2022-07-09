@@ -4,6 +4,7 @@ class UserSerializer < ActiveModel::Serializer
   has_many :language_to_teaches
   # has_many :conversations
   # has_many :messages
+  #has_many :chatrooms
 
   include Rails.application.routes.url_helpers
 

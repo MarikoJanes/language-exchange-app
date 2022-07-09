@@ -15,13 +15,20 @@ function ChatScreen( {user} ) {
   useEffect(() => {
     fetch(`/chatrooms/${id}`)
     .then(res => res.json())
-    .then(data => setChat(data))
-  }, [])
+    .then(data => {
+      debugger
+      console.log(user.id);
+      if(user.id!=data["user_id"]){
+        data.partner_id=data.user_id
+        data.user_id = user.id
+      }
+      setChat(data)})
+  }, [user])
 
   console.log(chat);
 
   useEffect(() => {
-    if(chat.id) {
+    if(chat.id && user) {
     const channel = cable.subscriptions.create({
       channel: "MessagesChannel",
       user_id: user.id,
@@ -29,6 +36,7 @@ function ChatScreen( {user} ) {
     },
     {
       received: (data) => {
+
           setMessages([...messages, data]);
           console.log(data)
       }
@@ -42,7 +50,7 @@ function ChatScreen( {user} ) {
       channel.unsubscribe();
     }
 
-  }}, [id, cable.subscriptions]);
+  }}, [id, cable.subscriptions, chat, user]);
 
   function sendMessages(content) {
     // needs to have sender and receipient Ids
@@ -63,14 +71,14 @@ function ChatScreen( {user} ) {
   return (
     <>
       <div>
-        <h4>Looing in as {user !== null ? user.name : "guest"}</h4>
+        <h4>Logged in as {user !== null ? user.name : "guest"}</h4>
       </div>
       <div>
         <ul>
-          {/* {messages.length > 0 ? 
+          { messages.length > 0 ?
             messages.map((message) => {
               return <li key={messages.id}>{message.content} sent by {message.user_id}</li>
-            }) : null} */}
+            }) : null }
         </ul>
       </div>
       <form onSubmit={handleSubmit} >
