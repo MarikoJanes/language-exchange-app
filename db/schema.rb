@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_08_201611) do
+ActiveRecord::Schema.define(version: 2022_07_09_204320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,8 @@ ActiveRecord::Schema.define(version: 2022_07_08_201611) do
     t.integer "sender_id"
     t.integer "recipient_id"
     t.boolean "paired"
+    t.bigint "chatroom_id"
+    t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -103,4 +105,5 @@ ActiveRecord::Schema.define(version: 2022_07_08_201611) do
   add_foreign_key "language_to_learns", "users"
   add_foreign_key "language_to_teaches", "languages"
   add_foreign_key "language_to_teaches", "users"
+  add_foreign_key "messages", "chatrooms"
 end

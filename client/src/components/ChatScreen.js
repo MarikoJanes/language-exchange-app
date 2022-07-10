@@ -7,25 +7,23 @@ import { ActionCableContext } from '../index';
 function ChatScreen( {user} ) {
   const { id } = useParams();
   const [text, setText] = useState("");
-  const [messages, setMessages] = useState([]);
   const [channel, setChannel] = useState(null);
-  const [chat, setChat] = useState([]);
+  const [chat, setChat] = useState({});
   const cable = useContext(ActionCableContext);
   
   useEffect(() => {
+    if(user != null){
     fetch(`/chatrooms/${id}`)
     .then(res => res.json())
     .then(data => {
-      debugger
-      console.log(user.id);
-      if(user.id!=data["user_id"]){
+      
+      if(user.id !=data["user_id"]){
         data.partner_id=data.user_id
         data.user_id = user.id
       }
       setChat(data)})
-  }, [user])
+  }}, [user, chat.partner_id])
 
-  console.log(chat);
 
   useEffect(() => {
     if(chat.id && user) {
@@ -37,8 +35,9 @@ function ChatScreen( {user} ) {
     {
       received: (data) => {
 
-          setMessages([...messages, data]);
-          console.log(data)
+          const tmp = {...chat};
+          tmp.messages.push(data)
+          setChat(tmp);
       }
       
   });
@@ -50,16 +49,18 @@ function ChatScreen( {user} ) {
       channel.unsubscribe();
     }
 
-  }}, [id, cable.subscriptions, chat, user]);
+  }}, [id, cable.subscriptions, chat, user, chat.partner_id, setChat]);
 
   function sendMessages(content) {
     // needs to have sender and receipient Ids
     // const data = { conversation_id: parseInt(id), user_id: user.id, content:content };
-    const data = { sender_id: user.id, recipient_id: chat.partner_id, content:content}
+    const data = { sender_id: user.id, recipient_id: chat.partner_id, content:content, chatroom: parseInt(id)}
     channel.send(data);
     console.log("sent ", data);
+    const tmp = {...chat};
+    tmp.messages.push(data)
+    setChat(tmp);
   }
-  console.log(channel)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -68,16 +69,23 @@ function ChatScreen( {user} ) {
     setText("");
   }
 
+
+  console.log(chat);
+
+  if(chat.id === null) return <h2>Loading...</h2>
+
   return (
     <>
       <div>
-        <h4>Logged in as {user !== null ? user.name : "guest"}</h4>
+        <h4>{user !== null ? "Logged in as " + user.name : "loading"}</h4>
       </div>
       <div>
         <ul>
-          { messages.length > 0 ?
-            messages.map((message) => {
-              return <li key={messages.id}>{message.content} sent by {message.user_id}</li>
+        
+          { 
+            Object.keys(chat).length > 0  ?
+            chat.messages.map((message) => {
+              return <li key={message.id}>{message.content} sent by {message.sender_id}</li>
             }) : null }
         </ul>
       </div>

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#login"
 
   # stay looged in
-  get "/authorized_user", to: "users#show"
+  get "/authorized_user", to: "sessions#show"
 
   # logout
   delete "logout", to: "sessions#logout"

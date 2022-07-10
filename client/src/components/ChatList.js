@@ -8,17 +8,18 @@ function ChatList({ userData }) {
     // will be moved up to the parent component
     const [conversations, setConversations] = useState(null);
     const cable = useContext(ActionCableContext);
-    let userChatData;
+
+
     useEffect(() => {
-        fetch("/conversations")
+        fetch("/chatrooms")
         .then(res => res.json())
         .then(data => {
-            userChatData = data.filter(elm => {
-                if(elm.messages.find(mess => mess.user_id === userData.id))
-                return true;
+            const userChatData = data.filter(elm => {
+                if(elm.user_id === userData.id || elm.partner_id === userData.id) {
+                    return true;
+                }
             });
-            setConversations(userChatData); 
-            
+            setConversations(userChatData);        
         })
     }, [])
 
@@ -30,7 +31,7 @@ function ChatList({ userData }) {
     <div>
         <ul>
             {conversations.length > 0 ? conversations.map(conversation => {
-                return <ChatListItem key={conversation.id} conversation={conversation} />
+                return <ChatListItem key={conversation.id} conversation={conversation} userData={userData}/>
             }) : null}
         </ul>
     </div>
