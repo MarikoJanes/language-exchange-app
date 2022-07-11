@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_09_204320) do
+ActiveRecord::Schema.define(version: 2022_07_11_180250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2022_07_09_204320) do
     t.boolean "paired"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "last_read_at"
     t.index ["user_id"], name: "index_chatrooms_on_user_id"
   end
 
@@ -89,6 +90,16 @@ ActiveRecord::Schema.define(version: 2022_07_09_204320) do
     t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "chatroom_id", null: false
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["chatroom_id"], name: "index_notes_on_chatroom_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -106,4 +117,6 @@ ActiveRecord::Schema.define(version: 2022_07_09_204320) do
   add_foreign_key "language_to_teaches", "languages"
   add_foreign_key "language_to_teaches", "users"
   add_foreign_key "messages", "chatrooms"
+  add_foreign_key "notes", "chatrooms"
+  add_foreign_key "notes", "users"
 end

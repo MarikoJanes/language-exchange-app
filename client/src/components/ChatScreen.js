@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { ActionCableContext } from '../index';
+import Note from "./Note";
 
 
 
@@ -9,6 +10,8 @@ function ChatScreen( {user} ) {
   const [text, setText] = useState("");
   const [channel, setChannel] = useState(null);
   const [chat, setChat] = useState({});
+  const [content, setContent] = useState("");
+  const [notes, setNotes] = useState([]);
   const cable = useContext(ActionCableContext);
   
   useEffect(() => {
@@ -30,7 +33,8 @@ function ChatScreen( {user} ) {
     const channel = cable.subscriptions.create({
       channel: "MessagesChannel",
       user_id: user.id,
-      recipient_id: chat.partner_id
+      recipient_id: chat.partner_id,
+      last_read_at: null
     },
     {
       received: (data) => {
@@ -46,6 +50,9 @@ function ChatScreen( {user} ) {
 
 
     return () => {
+      channel.last_read_at = Date();
+      console.log(channel);
+
       channel.unsubscribe();
     }
 
@@ -72,10 +79,42 @@ function ChatScreen( {user} ) {
 
   console.log(chat);
 
+  useEffect(() => {
+    fetch("/notes")
+    .then(res => res.json())
+    .then(data => {
+      const filteredData = data.filter(d => {
+        if(d.user_id === user.id){
+          return true;
+        }
+      })
+      setNotes(filteredData);
+    })
+  },[])
+
+  function handleClick() {
+    fetch("/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        chatroom_id: chat.id
+      })
+    })
+    .then(res => res.json())
+    .then(data => setNotes([...notes, data]))
+  }
+
   if(chat.id === null) return <h2>Loading...</h2>
 
   return (
     <>
+    {notes.length > 0 ?
+      notes.map((note, index) => <Note key={index} note={note} setContent={setContent} content={content} />)
+      : null}
+      <button onClick={handleClick}>Add Note +</button>
       <div>
         <h4>{user !== null ? "Logged in as " + user.name : "loading"}</h4>
       </div>

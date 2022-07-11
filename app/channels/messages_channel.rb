@@ -25,6 +25,9 @@ class MessagesChannel < ApplicationCable::Channel
 
   def unsubscribed
     stop_all_streams
+    chatroom = Chatroom.find_by(user_id: params["user_id"])
+      chatroom.update!(params["last_read_at"])
+      render json: chatroom, status: :accepted 
   end
 
 end
