@@ -1,13 +1,14 @@
 import React, { useEffect, useContext, useState } from 'react'
+import { Text } from "@chakra-ui/react";
 
 import { ActionCableContext } from '../index';
 import ChatListItem from "./ChatListItem";
 
-// this function is to recieve chat messages 
+
 function ChatList({ userData }) {
-    // will be moved up to the parent component
+
     const [conversations, setConversations] = useState(null);
-    const cable = useContext(ActionCableContext);
+    // const cable = useContext(ActionCableContext);
 
 
     useEffect(() => {
@@ -29,10 +30,12 @@ function ChatList({ userData }) {
     if(conversations === null) return <h2>Loading...</h2>
   return (
     <div>
+        <Text ml={8} mt={20} fontSize="xl">Notifications for you: </Text>
         <ul>
             {conversations.length > 0 ? conversations.map(conversation => {
                 return <ChatListItem key={conversation.id} conversation={conversation} userData={userData}/>
-            }) : null}
+            }) : 
+            <Text fontSize="xl">No updates</Text>}
         </ul>
     </div>
   )

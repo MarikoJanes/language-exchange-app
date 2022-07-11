@@ -12,6 +12,7 @@ function SearchBar() {
     }
 
     function handleSubmit(e) {
+        console.log("clicked")
         e.preventDefault();
         if(isSelected === "learn") {
             const searchedLearnLang = search;
@@ -23,7 +24,7 @@ function SearchBar() {
         }
         
     }
-
+console.log(search)
 console.log(isSelected)
   return (
     <>
@@ -39,13 +40,8 @@ console.log(isSelected)
             </Flex>
             <Flex alignItems="center" justifyContent="center" mb={6}>
                 <Input className="search-bar" type="text" placeholder="Find a partner by language" value={search} onChange={handleInput} />
-                <Button ml={3} colorScheme="teal" >Search</Button>
+                <Button type='submit' ml={3} colorScheme="teal" >Search</Button>
             </Flex>
-        
-       
-            
-            
-
         </form>
     </>
   )

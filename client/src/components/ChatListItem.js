@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
-import UserCard from './UserCard';
+import { Avatar, Box, Text, Badge, Flex, Button, Spacer } from "@chakra-ui/react";
 
 
 function ChatListItem({ conversation, userData }) {
@@ -28,24 +28,34 @@ if(partner === null) return <h2>Loading...</h2>
   return (
     <>
     {Object.keys(partner).length > 0 ?
-      <div id={partner.id}>
-      <h3>{partner.name}</h3>
-      <ul>
-        learning: 
-          {partner.language_to_learns.length > 0 ?
-            partner.language_to_learns.map(lang => {
-              return <li key={lang.id}>{lang.name}</li>
-            }) : null}
-      </ul>
-      <ul>
-        teaching: 
-          {partner.language_to_teaches.length > 0 ?
-            partner.language_to_teaches.map(lang => {
-              return <li key={lang.id}>{lang.name}</li>
-            }) : null}
-      </ul>
-      <button onClick={handlePageJump} >Chat</button>
-    </div> : null
+      <Flex my={8} mx={8} boxShadow="md" padding={5}>
+      <Avatar size="xl" src={partner.profile_image_url} alt="profile" />
+        <Box id={partner.id} ml={6}>
+          <Text fontSize="xl">{partner.name}</Text>
+          <Text fontSize="xl">
+            Learning: 
+              {partner.language_to_learns.length > 0 ?
+                partner.language_to_learns.map(lang => {
+                  return <Badge ml={1} fontSize='0.8em' colorScheme="green" key={lang.id}>{lang.name}</Badge>
+                }) : null}
+          </Text>
+          <Text fontSize="xl">
+            Teaching: 
+              {partner.language_to_teaches.length > 0 ?
+                partner.language_to_teaches.map(lang => {
+                  return <Badge ml={1} fontSize='0.8em' colorScheme="pink" key={lang.id}>{lang.name}</Badge>
+                }) : null}
+          </Text>
+          </Box> 
+
+          <Spacer />
+
+          <Box>
+            <Button onClick={handlePageJump} colorScheme="teal" className="chat-btn">Chat</Button>
+          </Box>
+          
+        
+    </Flex>: "no new messages"
     }
     </>
   )
