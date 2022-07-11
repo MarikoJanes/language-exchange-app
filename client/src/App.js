@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
+import { ChakraProvider } from '@chakra-ui/react'
 import TitlePage from "./components/TitlePage";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
@@ -33,7 +34,7 @@ function App() {
 
 
   return (
-    <>
+    <ChakraProvider>
         <NavBar setIsAuthenticated={setIsAuthenticated} setUser={setUser} isAuthenticated={isAuthenticated}/>
         <Switch>
           <Route exact path="/signup">
@@ -62,7 +63,7 @@ function App() {
           </Route>
          
         </Switch>
-    </>
+    </ChakraProvider>
   );
 }
 

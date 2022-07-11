@@ -1,13 +1,11 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-flex-direction: column;
-}
+
 
 .image-goes {
   width: 200px;
   height: 200px;
   border-radius: 50%;
+}
+
+.search-bar {
+  width: 60% !important;
 }

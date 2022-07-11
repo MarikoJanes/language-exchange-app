@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from "react-router-dom";
+import { Flex, Heading, Input, Button } from "@chakra-ui/react";
 
 function Login({ setUser, setIsAuthenticated }) {
   const [username, setUsername] = useState("");
@@ -40,22 +41,40 @@ function Login({ setUser, setIsAuthenticated }) {
 
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
-          <label>username</label>
-          <input type="text" name="username" value={username} placeholder="Username" onChange={e => setUsername(e.target.value)} />
-            <br></br>
-          <label>password</label>
-          <input type="password" name="password" value={password} placeholder="Password" onChange={e => setPassword(e.target.value)} />
-            <br></br>
+    <Flex className="userForm" alignItems="center" justifyContent="center">
+      <Flex className="login" direction="column" background="teal.100" p={12} rounded={6}>
+        <form onSubmit={handleSubmit}>
+          <Heading mb={6} >Login</Heading>
+            {/* <label>username</label> */}
+            <Input 
+                background="white"
+                mb={3}
+                type="text" 
+                name="username" 
+                value={username} 
+                placeholder="Username" 
+                onChange={e => setUsername(e.target.value)}
+            />
+              <br></br>
+            {/* <label>password</label> */}
+            <Input 
+                background="white"
+                mb={6}
+                type="password" 
+                name="password" 
+                value={password} 
+                placeholder="Password" 
+                onChange={e => setPassword(e.target.value)} 
+            />
+              <br></br>
 
-          {error ? <div style={{color: "red"}} >{error}</div> : null}
+            {error ? <div style={{color: "red"}} >{error}</div> : null}
 
-          <button type="submit">Login</button>
-      </form>
-      <p style={{color: "gray"}}>Not a member? <Link to="/signup"> Join Now</Link></p>
-    </>
+            <Button mt={3} mb={6} colorScheme="teal" variant='solid' type="submit">Login</Button>
+        </form>
+        <p style={{color: "gray"}}>Not a member? <Link to="/signup"> Join Now</Link></p>
+      </Flex>
+    </Flex>
   )
 }
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory, Link } from "react-router-dom";
+import { Flex, Heading, Input, Button } from "@chakra-ui/react";
 
 function Signup({ setUser, setIsAuthenticated }) {
     const [username, setUsername] = useState("");
@@ -46,29 +47,64 @@ function Signup({ setUser, setIsAuthenticated }) {
 
 
   return (
-    <>
-        <form onSubmit={handleSubmit}>
-            <h1>Sign Up</h1>
-                <label>name</label>
-                <input type="text" name="name" placeholder='username' value={username} onChange={e => setUsername(e.target.value)} />
-                    <br></br>
-                <label>email</label>
-                <input type="email" name="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} />
-                    <br></br>
-                <label>password</label>
-                <input type="password" name="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value)} />
-                    <br></br>
-                <label>password confirmation</label>
-                <input type="password" name="passwordConfirmation" placeholder="password confirmation" value={passwordConfirmation} onChange={e => setPasswordConfirmation(e.target.value)} />
-                    <br></br>
+    <Flex className="userForm" alignItems="center" justifyContent="center">
+        <Flex className="login" direction="column" background="yellow.100" p={12} rounded={6}>
+            <form onSubmit={handleSubmit}>
+                <Heading mb={6}>Sign Up</Heading>
 
-                {errors ? errors.map((error, index) => {
-                    return <p style={{color: "red"}} key={index}>{error}</p>
-                }) : null}    
-                <button type="submit" >Sign up</button>
-        </form>
-        <p style={{color: "gray"}}>Already a member? <Link to="/login"> Log in</Link></p>
-    </>
+                    <Input 
+                        background="white"
+                        mb={3}
+                        type="text" 
+                        name="name" 
+                        placeholder='username' 
+                        value={username} 
+                        onChange={e => setUsername(e.target.value)} 
+                    />
+                        <br></br>
+
+                    <Input 
+                        background="white"
+                        mb={3}
+                        type="email" 
+                        name="email" 
+                        placeholder="email@example.com" 
+                        value={email} 
+                        onChange={e => setEmail(e.target.value)} 
+                    />
+                        <br></br>
+                    
+                    <Input 
+                        background="white"
+                        mb={3}
+                        type="password" 
+                        name="password" 
+                        placeholder="password" 
+                        value={password} 
+                        onChange={e => setPassword(e.target.value)} 
+                    />
+                        <br></br>
+                    
+                    <Input 
+                        background="white"
+                        mb={3}
+                        type="password" 
+                        name="passwordConfirmation" 
+                        placeholder="password confirmation" 
+                        value={passwordConfirmation} 
+                        onChange={e => setPasswordConfirmation(e.target.value)} 
+                    />
+                        <br></br>
+
+                    {errors ? errors.map((error, index) => {
+                        return <p style={{color: "red"}} key={index}>{error}</p>
+                    }) : null}    
+                    
+                    <Button mt={3} mb={6} colorScheme="teal" variant='solid' type="submit" >Sign up</Button>
+            </form>
+            <p style={{color: "gray"}}>Already a member? <Link to="/login"> Log in</Link></p>
+        </Flex>
+    </Flex>
   )
 
 }

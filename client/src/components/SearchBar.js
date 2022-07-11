@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
+import { Input, Flex, Button, Radio, RadioGroup, Stack } from "@chakra-ui/react";
 
 function SearchBar() {
     const [search, setSearch] = useState("");
@@ -8,10 +9,6 @@ function SearchBar() {
 
     function handleInput(e) {
         setSearch(e.target.value);
-    }
-
-    function handleChange(e) {
-        setIsSelected(e.target.value);
     }
 
     function handleSubmit(e) {
@@ -31,15 +28,24 @@ console.log(isSelected)
   return (
     <>
         <form onSubmit={handleSubmit}>
-        <div>
-            <label>Learner</label>
-            <input onChange={handleChange} type="radio" name="language" value="learn" checked={isSelected === "learn"} />
-            <label>Teacher</label>
-            <input onChange={handleChange} type="radio" name="language" value="teach" checked={isSelected === "teach"}/>
-        </div>
+            <Flex alignItems="center" justifyContent="center" mt={6} mb={3}>
+            <RadioGroup onChange={setIsSelected} value={isSelected}>
+                <Stack direction="row">
+                    <Radio colorScheme="teal" value="learn">Learner</Radio>
+                    <Radio colorScheme="teal" value="teach">Teacher</Radio>
+                </Stack>
+            </RadioGroup>
+                
+            </Flex>
+            <Flex alignItems="center" justifyContent="center" mb={6}>
+                <Input className="search-bar" type="text" placeholder="Find a partner by language" value={search} onChange={handleInput} />
+                <Button ml={3} colorScheme="teal" >Search</Button>
+            </Flex>
+        
+       
             
-            <input type="text" placeholder="Find a partner by language" value={search} onChange={handleInput} />
-            <button>Search</button>
+            
+
         </form>
     </>
   )
