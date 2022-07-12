@@ -8,6 +8,9 @@ class User < ApplicationRecord
     has_many :chatrooms
     has_many :notes
 
+    validates :name, presence: true, uniqueness: true
+    validates :email, format: /\w+@\w+\.{1}[a-zA-Z]{2,}/, presence: true, uniqueness: true
+
 
     has_one_attached :profile_image_url
 end
