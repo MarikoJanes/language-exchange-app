@@ -1,7 +1,9 @@
 class NotesController < ApplicationController
 
     def index 
-        render json: Note.all 
+        user_note = Note.select { |note| note.user_id == current_user.id}
+        render json: user_note
+        # render json: Note.all
     end
 
     def show 

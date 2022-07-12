@@ -45,3 +45,7 @@
 .chakra-select__wrapper{
   width:50% !important;
 }
+
+.round-btn {
+  border-radius: 50% !important;
+}

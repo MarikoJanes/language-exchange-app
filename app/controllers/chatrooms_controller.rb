@@ -13,7 +13,7 @@ class ChatroomsController < ApplicationController
         
         existing_chatroom = Chatroom.find_by(:user_id => params[:user_id], partner_id: params[:partner_id])
         reversed_chatroom = Chatroom.find_by(:user_id => params[:partner_id], partner_id: params[:user_id])
-        byebug
+
         if existing_chatroom == nil && reversed_chatroom == nil
             chatroom = Chatroom.create(chatroom_params)
             render json: chatroom, status: :created

@@ -1,7 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { ActionCableContext } from '../index';
-import Note from "./Note";
+import { Grid, GridItem } from '@chakra-ui/react';
+import UserNotes from './UserNotes';
 
 
 
@@ -10,8 +11,6 @@ function ChatScreen( {user} ) {
   const [text, setText] = useState("");
   const [channel, setChannel] = useState(null);
   const [chat, setChat] = useState({});
-  const [content, setContent] = useState("");
-  const [notes, setNotes] = useState([]);
   const cable = useContext(ActionCableContext);
   
   useEffect(() => {
@@ -50,6 +49,7 @@ function ChatScreen( {user} ) {
 
 
     return () => {
+      // not working, needs to be fixed
       channel.last_read_at = Date();
       console.log(channel);
 
@@ -59,8 +59,6 @@ function ChatScreen( {user} ) {
   }}, [id, cable.subscriptions, chat, user, chat.partner_id, setChat]);
 
   function sendMessages(content) {
-    // needs to have sender and receipient Ids
-    // const data = { conversation_id: parseInt(id), user_id: user.id, content:content };
     const data = { sender_id: user.id, recipient_id: chat.partner_id, content:content, chatroom: parseInt(id)}
     channel.send(data);
     console.log("sent ", data);
@@ -79,42 +77,19 @@ function ChatScreen( {user} ) {
 
   console.log(chat);
 
-  useEffect(() => {
-    fetch("/notes")
-    .then(res => res.json())
-    .then(data => {
-      const filteredData = data.filter(d => {
-        if(d.user_id === user.id){
-          return true;
-        }
-      })
-      setNotes(filteredData);
-    })
-  },[])
 
-  function handleClick() {
-    fetch("/notes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        user_id: user.id,
-        chatroom_id: chat.id
-      })
-    })
-    .then(res => res.json())
-    .then(data => setNotes([...notes, data]))
-  }
+
+  
 
   if(chat.id === null) return <h2>Loading...</h2>
 
   return (
     <>
-    {notes.length > 0 ?
-      notes.map((note, index) => <Note key={index} note={note} setContent={setContent} content={content} />)
-      : null}
-      <button onClick={handleClick}>Add Note +</button>
+    <Grid templateColumns='repeat(5, 1fr)' gap={10}>
+      <GridItem colSpan={2}>
+        <UserNotes user={user} chat={chat} />
+      </GridItem>
+      <GridItem colSpan={3}>
       <div>
         <h4>{user !== null ? "Logged in as " + user.name : "loading"}</h4>
       </div>
@@ -132,6 +107,8 @@ function ChatScreen( {user} ) {
         <input type="text" name="message" value={text} onChange={e => setText(e.target.value)} />
         <button>Send message</button>
       </form>
+      </GridItem>
+      </Grid>
     </>
   )
 }

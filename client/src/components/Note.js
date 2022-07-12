@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Autosave, useAutosave } from "react-autosave";
+import { Textarea } from "@chakra-ui/react";
 
-function Note({ note, setContent, content }) {
+function Note({ notes, setContent, content, setNotes }) {
     
-    useAutosave({data: content, onSave: handleSubmit});
+    useAutosave({data: content, onSave: handleSubmit, saveOnUnmount: false});
 
-console.log(note);
+console.log(notes);
+
     function handleSubmit(data) {
-        fetch(`/notes/${note.id}`, {
+        fetch(`/notes/${notes.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -23,7 +25,7 @@ console.log(note);
 
   return (
     <div >
-        <textarea value={content} onChange={e => setContent(e.target.value)} />
+        <Textarea value={content} onChange={e => setContent(e.target.value)} />
     </div>
   )
 }
