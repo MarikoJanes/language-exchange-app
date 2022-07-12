@@ -9,7 +9,6 @@ function UserNotes({ user, chat }) {
     // get an existing note data
     useEffect(() => {
         if(chat !== undefined && Object.keys(chat).length > 0) {
-            console.log(chat);
         fetch("/notes")
         .then(res => res.json())
         .then(data => {
@@ -46,10 +45,6 @@ function UserNotes({ user, chat }) {
         .then(data => setNotes(data))
       }
 
-      console.log(notes);
-
-
-
     // if(Object.keys(notes).length === 0 ) return <h2>Loading...</h2>
   return (
     <div>UserNotes
@@ -58,11 +53,8 @@ function UserNotes({ user, chat }) {
             : 
             <div>
             <p>Open a note</p>
-            <Button onClick={handleClick} className="round-btn">+</Button>
+            <Button onClick={handleClick} className="round-btn" colorScheme="teal">+</Button>
             </div>}
-
-      
-    
     </div>
   )
 }

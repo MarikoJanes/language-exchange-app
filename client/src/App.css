@@ -48,4 +48,45 @@
 
 .round-btn {
   border-radius: 50% !important;
+  margin-left: 70%;
+}
+
+.chat-name {
+  margin-top: 3%
+}
+
+.name-box {
+  padding: 3%;
+  border-width: 3px;
+}
+
+.chat-box {
+  border-width: 1.5px;
+}
+
+.message-box {
+  padding: 3%
+}
+
+.sender-message {
+  /* border-width: 2px;
+  border-radius: 10%;
+  padding: 5px; */
+  background-color: #D4E2D4;
+  padding: 10px;
+  border-radius: 25px;
+  max-width: 80%;
+}
+
+.partner-message {
+  padding: 10px;
+  border-radius: 25px;
+  min-width: 30%;
+  color: #FCF8E8;
+  background-color: #94B49F;
+}
+
+.message-container {
+  justify-content: end;
+  align-items: center;
 }

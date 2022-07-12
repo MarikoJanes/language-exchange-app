@@ -1,8 +1,9 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { ActionCableContext } from '../index';
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem, Button, Input, Box, Flex, Text, Avatar  } from '@chakra-ui/react';
 import UserNotes from './UserNotes';
+import Messages from './Messages';
 
 
 
@@ -11,10 +12,12 @@ function ChatScreen( {user} ) {
   const [text, setText] = useState("");
   const [channel, setChannel] = useState(null);
   const [chat, setChat] = useState({});
+  const [partner, setPartner] = useState([]);
   const cable = useContext(ActionCableContext);
   
+  // get a chat data
   useEffect(() => {
-    if(user != null){
+    if(user !== null){
     fetch(`/chatrooms/${id}`)
     .then(res => res.json())
     .then(data => {
@@ -26,7 +29,25 @@ function ChatScreen( {user} ) {
       setChat(data)})
   }}, [user, chat.partner_id])
 
+  // get a partner data 
+  useEffect(() => {
+    if(user !== null && chat.id !== null) {
+      let fetchId;
+      if(user.id === chat.user_id) {
+        fetchId = chat.partner_id;
+      } else if (user.id !== chat.user_id) {
+        fetchId = chat.user_id;
+      }
+      console.log(fetchId);
+      fetch(`/users/${fetchId}`)
+      .then(res => res.json())
+      .then(data => setPartner(data));
+    }
+  }, [user, chat])
 
+  console.log(partner);
+
+  // interact with action cable
   useEffect(() => {
     if(chat.id && user) {
     const channel = cable.subscriptions.create({
@@ -77,35 +98,42 @@ function ChatScreen( {user} ) {
 
   console.log(chat);
 
-
-
-  
-
   if(chat.id === null) return <h2>Loading...</h2>
 
   return (
     <>
     <Grid templateColumns='repeat(5, 1fr)' gap={10}>
+
+      {/* notes  */}
       <GridItem colSpan={2}>
         <UserNotes user={user} chat={chat} />
       </GridItem>
-      <GridItem colSpan={3}>
-      <div>
-        <h4>{user !== null ? "Logged in as " + user.name : "loading"}</h4>
-      </div>
+
+      {/* chats */}
+      <GridItem colSpan={3} className="chat-box">
+      <Flex className="name-box">
+       
+          <Avatar size="md" src={partner.profile_image_url} alt="profile" />
+          <Box ml={3} className="chat-name">
+            <Text fontWeight="bold" fontSize="lg">{partner.name}</Text>
+          </Box>
+        
+        
+       
+      </Flex>
       <div>
         <ul>
         
           { 
             Object.keys(chat).length > 0  ?
             chat.messages.map((message) => {
-              return <li key={message.id}>{message.content} sent by {message.sender_id}</li>
+              return <Messages key={message.id} message={message} user={user} partner={partner} />
             }) : null }
         </ul>
       </div>
       <form onSubmit={handleSubmit} >
-        <input type="text" name="message" value={text} onChange={e => setText(e.target.value)} />
-        <button>Send message</button>
+        <Input type="text" name="message" value={text} onChange={e => setText(e.target.value)} />
+        <Button colorScheme="teal">Send message</Button>
       </form>
       </GridItem>
       </Grid>

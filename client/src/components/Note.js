@@ -6,7 +6,6 @@ function Note({ notes, setContent, content, setNotes }) {
     
     useAutosave({data: content, onSave: handleSubmit, saveOnUnmount: false});
 
-console.log(notes);
 
     function handleSubmit(data) {
         fetch(`/notes/${notes.id}`, {
@@ -19,9 +18,6 @@ console.log(notes);
         .then(res => res.json())
         .then(data => console.log(data))
     }
-
-
-
 
   return (
     <div >
