@@ -10,14 +10,26 @@ class ChatroomsController < ApplicationController
     end
 
     def create
-        chatroom = Chatroom.create!(chatroom_params)
+        
+        existing_chatroom = Chatroom.find_by(:user_id => params[:user_id], partner_id: params[:partner_id])
+        reversed_chatroom = Chatroom.find_by(:user_id => params[:partner_id], partner_id: params[:user_id])
+        byebug
+        if existing_chatroom == nil && reversed_chatroom == nil
+            chatroom = Chatroom.create(chatroom_params)
+            render json: chatroom, status: :created
+        elsif existing_chatroom != nil
+            render json: existing_chatroom
+        else
+            render json: reversed_chatroom
+        end
+
         #serialized_data = ActiveModelSerializers::Adapter::Json.new(
         #    ChatroomSerializer.new(chatroom)
         #).serializable_hash
         #ActionCable.server.broadcast "messages_channel", serialized_data
         #head :ok
 
-        render json: chatroom, status: :created
+       
     end
 
 

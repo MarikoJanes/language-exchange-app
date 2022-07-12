@@ -8,8 +8,9 @@ function UserCard({ result, user }) {
 
 
   function handleClick(e) {
-    const partnerId = parseInt(e.target.parentElement.id);
-    // const userIds = [user.id, partnerId];
+   
+    const partnerId = parseInt(e.target.parentElement.parentElement.id);
+    const userIds = [user.id, partnerId];
 
     fetch("/chatrooms", {
       method: "POST",
