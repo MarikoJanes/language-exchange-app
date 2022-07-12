@@ -1,5 +1,5 @@
 import React from 'react'
-import { GoTrashcan } from "react-icons/go";
+import { Box, Button, HStack, FormLabel, Tag, TagLabel, TagCloseButton, Select } from "@chakra-ui/react";
 
 function TeachLanguages({languages, setTeachLang, teachLang, userData, addTeachLang, deleteTeachLang }) {
     
@@ -37,35 +37,44 @@ function TeachLanguages({languages, setTeachLang, teachLang, userData, addTeachL
 
 
 return (
-    <form onSubmit={handleSubmit}>
-        <label>language you are be able to teach: </label>
-            <select onChange={handleChange}>
-            <option>Choose a language</option>
-                {languages.length > 0 ? languages.map((lang, index) => {
-                return <option key={index} id={lang.id} value={lang.name}>{lang.name}</option> 
-                }) : null}
-            </select>
+    <>
+        <form onSubmit={handleSubmit}>
+            <FormLabel fontSize="lg">Languages you can teach: </FormLabel>
+                <Select onChange={handleChange}>
+                    <option>Choose a language</option>
+                        {languages.length > 0 ? languages.map((lang, index) => {
+                        return <option key={index} id={lang.id} value={lang.name}>{lang.name}</option> 
+                        }) : null}
+                </Select>
 
-            <input type="submit" value="Save" />
-
-            {userData.language_to_teaches.length > 0 ? 
-                userData.language_to_teaches.map(lang => {
-                    return (
-                        <div key={lang.id} id={lang.id} className="deleteDiv">
-                            <li>{lang.name}</li>
-                            <button type="button" onClick={handleApiDelete}><GoTrashcan /></button>
-                        </div>
-                    )
-                }) : null}
-        {teachLang.length > 0 ? teachLang.map((lang, index) => {
-            return (
-                <div key={index}>
-                    <li>{lang.name}</li>
-                    <button type="button" onClick={handleDelete}><GoTrashcan /></button>
-                </div>
-            )
-        }) : null}
-    </form>
+                <HStack mt={3}>
+                    {userData.language_to_teaches.length > 0 ? 
+                        userData.language_to_teaches.map(lang => {
+                            return (
+                                <Box key={lang.id} id={lang.id} className="deleteDiv">
+                                    <Tag size="lg" variant="subtle" colorScheme="pink">
+                                        <TagLabel>{lang.name}</TagLabel>
+                                        <TagCloseButton onClick={handleApiDelete}/>
+                                    </Tag>
+                                </Box>
+                            )
+                        }) : null}
+                </HStack>
+                <HStack mt={3}>
+                    {teachLang.length > 0 ? teachLang.map((lang, index) => {
+                        return (
+                            <Box key={index}>
+                                <Tag size="lg" variant="subtle" colorScheme="gray">
+                                    <TagLabel>{lang.name}</TagLabel>
+                                    <TagCloseButton onClick={handleDelete}/>
+                                </Tag>
+                            </Box>
+                        )
+                    }) : null}
+                </HStack>
+            <Button className="lang-btn" type="submit" colorScheme="teal">Update</Button>
+        </form>
+    </>
 )
 }
 

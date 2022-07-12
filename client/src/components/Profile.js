@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from "react-router-dom";
 import LearnLanguages from './LearnLanguages';
 import TeachLanguages from './TeachLanguages';
+import { Avatar, Box, Text, Button, Grid, VStack, Input, FormLabel, GridItem, HStack } from "@chakra-ui/react";
+import { VscAccount, VscBook } from "react-icons/vsc";
+
 
 function Profile({ user, setUser }) {
   const [userData, setUserData] = useState(null);
@@ -9,6 +12,7 @@ function Profile({ user, setUser }) {
   const [learnLang, setLearnLang] = useState([]);
   const [teachLang, setTeachLang] = useState([]);
   const [profileImg, setProfileImg] = useState(null);
+  const [isClicked, setIsClicked] = useState(false);
 
   const history = useHistory();
 
@@ -101,33 +105,57 @@ function Profile({ user, setUser }) {
 
   return (
     <>
-      <h1>Profile settings</h1>
-      <form onSubmit={handleSubmit}>
-        <label>profile image:</label>
-          <div >
-            <img className="image-goes" src={userData.profile_image_url === null ? "../images/placeholder.png" : userData.profile_image_url}
-            alt="profile-photo" />
-          </div>
-          <input type="file" onChange={uploadFile} />
-            <br></br>
+    <Grid  templateRows='repeat(2, 1fr)' templateColumns='repeat(5, 1fr)' className="profile-container">
+      <GridItem className="profile-bar" rowSpan={2} colSpan={1}>
+        <VStack>
+          <Text mb={30} fontSize="2xl" fontWeight="bold">User Profile</Text>
+            <HStack mb={15}>
+              <Box>
+                <VscAccount />
+              </Box>
+              <Box className={isClicked ? null : "text-btn"}> 
+                <Text onClick={() => setIsClicked(false)}>Profile</Text>
+              </Box>
+            </HStack>
+            <HStack>
+              <Box>
+                <VscBook />
+              </Box>
+              <Box className={isClicked ? "text-btn" : null}>
+                <Text onClick={() => setIsClicked(true)}>Languages</Text>
+              </Box>
+            </HStack>
+        </VStack>
+      </GridItem>
+      {isClicked === false ? 
+        <GridItem colSpan={4} >
+     
+     <form onSubmit={handleSubmit}>
 
-        <label>username: </label>
-        <p>{userData.name}</p>
-          <br></br>
+           <Avatar boxShadow="lg" mb={10} size='2xl' className="image-goes" src={userData.profile_image_url === null ? "../images/placeholder.png" : userData.profile_image_url}
+           alt="profile-photo" />
 
-        <label>email</label>
-        <p>{userData.email}</p>
-          <br></br>
+         <input className="input-nav" type="file" onChange={uploadFile} />
+           <br></br>
 
-        <label>city (optional):</label>
-        <input type="text" name="city" value={userData.city} onChange={handleChange} />
-          <br></br>
+       <FormLabel mt={6}>Name: </FormLabel>
+       <Input mb={6} className="disabled-input search-bar" variant='filled' value={userData.name} disabled/>
+         <br></br>
 
-          <input type="submit" value="Save Profile" />
-      </form>
+       <FormLabel>Email: </FormLabel>
+       <Input mb={6} className="disabled-input search-bar" variant='filled' value={userData.email} disabled/>
+         <br></br>
 
+       <FormLabel>City (optional):</FormLabel>
+       <Input className="search-bar" mb={10} type="text" name="city" value={userData.city} onChange={handleChange} />
+         <br></br>
 
-        <p>select, show it as a tag in pink</p>
+         <Button colorScheme="teal" type="submit">Save Changes</Button>
+       
+     </form>
+     </GridItem> :
+     <GridItem colSpan={4}>
+     
         <LearnLanguages 
             languages={languages} 
             setLearnLang={setLearnLang} 
@@ -140,7 +168,6 @@ function Profile({ user, setUser }) {
    
 
             
-        <p>select, show it as a tag in green</p>
         <TeachLanguages 
             languages={languages} 
             setTeachLang={setTeachLang} 
@@ -151,10 +178,16 @@ function Profile({ user, setUser }) {
         />
           <br></br>
 
-      <button onClick={handleJumpPage} >Go back to mypage</button>
+      
+    </GridItem>
+      }
+      
 
+      <Button mt={30} colorScheme="gray" onClick={handleJumpPage} >My page</Button>
 
+        
 
+    </Grid>
     </>
   )
 }

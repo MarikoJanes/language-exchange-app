@@ -31,7 +31,7 @@ if(partner === null) return <h2>Loading...</h2>
       <Flex my={8} mx={8} boxShadow="md" padding={5}>
       <Avatar size="xl" src={partner.profile_image_url} alt="profile" />
         <Box id={partner.id} ml={6}>
-          <Text fontSize="xl">{partner.name}</Text>
+          <Text fontSize="xl" fontWeight="bold">{partner.name}</Text>
           <Text fontSize="xl">
             Learning: 
               {partner.language_to_learns.length > 0 ?

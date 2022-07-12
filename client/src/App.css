@@ -14,3 +14,34 @@
   top: 25%;
 }
 
+.profile-bar {
+  width: 30%;
+}
+
+.disabled-input {
+  background-color: #DDDDDD !important;
+}
+
+.profile-container {
+  margin-top: 10%;
+  margin-left: 10%;
+}
+
+.input-nav {
+  margin-top: 200px;
+}
+
+.text-btn {
+  border-right-color: teal !important;
+  border-right-style: solid !important;
+  border-right-width: 2px;
+  padding-right:5px;
+}
+
+.lang-btn {
+  margin-left: 80% !important;
+}
+
+.chakra-select__wrapper{
+  width:50% !important;
+}

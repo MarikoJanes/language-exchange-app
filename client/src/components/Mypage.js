@@ -32,19 +32,19 @@ function Mypage({  }) {
           </HStack>
         
           
-          <Text fontSize="xl">City: {userData.city}</Text>
+          <Text mt={5} fontSize="xl">City: {userData.city}</Text>
           <Text fontSize="xl">Learning:</Text>
             <ul>
               {userData.language_to_learns.length > 0 ? 
                 userData.language_to_learns.map(lang => {
-                  return <Badge ml={1} fontSize="1.0rem" colorScheme="green" key={lang.id}>{lang.name}</Badge>
+                  return <Badge ml={1} mb={3} fontSize="1.0rem" colorScheme="green" key={lang.id}>{lang.name}</Badge>
                 }) : <p>not registered</p>}
             </ul>
           <Text fontSize="xl">Teaching:</Text>
             <ul>
               {userData.language_to_teaches.length > 0 ? 
                 userData.language_to_teaches.map(lang => {
-                  return <Badge ml={1} fontSize="1.0rem" colorScheme="pink" key={lang.id}>{lang.name}</Badge>
+                  return <Badge ml={1} mb={3} fontSize="1.0rem" colorScheme="pink" key={lang.id}>{lang.name}</Badge>
                 }) : <p>not registered</p>}
             </ul>
     
