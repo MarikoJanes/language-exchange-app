@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Autosave, useAutosave } from "react-autosave";
 import { Textarea } from "@chakra-ui/react";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-function Note({ notes, setContent, content, setNotes }) {
+function Note({ notes, setValue, content, value }) {
+  
     
-    useAutosave({data: content, onSave: handleSubmit, saveOnUnmount: false});
+    useAutosave({data: value, onSave: handleSubmit, saveOnUnmount: false});
 
 
     function handleSubmit(data) {
@@ -21,7 +24,8 @@ function Note({ notes, setContent, content, setNotes }) {
 
   return (
     <div >
-        <Textarea value={content} onChange={e => setContent(e.target.value)} />
+        <ReactQuill theme="snow" value={value} onChange={setValue}/>
+        {/* <Textarea value={content} onChange={e => setContent(e.target.value)} /> */}
     </div>
   )
 }

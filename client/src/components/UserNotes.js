@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Note from "./Note";
 import { Button, } from "@chakra-ui/react";
 
+
+
 function UserNotes({ user, chat }) {
     const [notes, setNotes] = useState({});
     const [content, setContent] = useState("");
+    const [value, setValue] = useState("");
+
 
     // get an existing note data
     useEffect(() => {
@@ -19,7 +23,7 @@ function UserNotes({ user, chat }) {
           })
           if(filteredData.length>0) {
             setNotes(filteredData[0]);
-            setContent(filteredData[0].content);
+            setValue(filteredData[0].content);
           } else {
             return console.log("no notes")
           }
@@ -47,9 +51,14 @@ function UserNotes({ user, chat }) {
 
     // if(Object.keys(notes).length === 0 ) return <h2>Loading...</h2>
   return (
-    <div>UserNotes
+    <div>
         {(Object.keys(notes).length >0) ?
-            <Note setNotes={setNotes} setContent={setContent} content={content} notes={notes} />
+            <>
+            <Note setValue={setValue} value={value} notes={notes} />
+            
+            
+
+            </>
             : 
             <div>
             <p>Open a note</p>
