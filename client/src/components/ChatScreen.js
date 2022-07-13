@@ -31,7 +31,7 @@ function ChatScreen( {user} ) {
 
   // get a partner data 
   useEffect(() => {
-    if(user !== null && chat.id !== null) {
+    if(user !== null && chat.id != undefined) {
       let fetchId;
       if(user.id === chat.user_id) {
         fetchId = chat.partner_id;
@@ -43,9 +43,7 @@ function ChatScreen( {user} ) {
       .then(res => res.json())
       .then(data => setPartner(data));
     }
-  }, [user, chat])
-
-  console.log(partner);
+  }, [user, chat.id])
 
   // interact with action cable
   useEffect(() => {
@@ -70,14 +68,24 @@ function ChatScreen( {user} ) {
 
 
     return () => {
-      // not working, needs to be fixed
-      channel.last_read_at = Date();
-      console.log(channel);
-
       channel.unsubscribe();
     }
 
   }}, [id, cable.subscriptions, chat, user, chat.partner_id, setChat]);
+
+  useEffect(() => {
+    return () => {
+      fetch(`/chatrooms/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          last_read_at: Date ()
+        })
+      })
+    }
+  }, [user.id, chat.partner_id]);
 
   function sendMessages(content) {
     const data = { sender_id: user.id, recipient_id: chat.partner_id, content:content, chatroom: parseInt(id)}
@@ -96,7 +104,6 @@ function ChatScreen( {user} ) {
   }
 
 
-  console.log(chat);
 
   if(chat.id === null) return <h2>Loading...</h2>
 
@@ -111,30 +118,26 @@ function ChatScreen( {user} ) {
 
       {/* chats */}
       <GridItem colSpan={3} className="chat-box" mr={5}>
-      <Flex className="name-box">
-       
+      <Flex className="name-box">    
           <Avatar size="md" src={partner.profile_image_url} alt="profile" />
           <Box ml={3} className="chat-name">
             <Text fontWeight="bold" fontSize="lg">{partner.name}</Text>
           </Box>
-        
-        
-       
       </Flex>
       <div className="talk">
         <ul>
-        
-          { 
-            Object.keys(chat).length > 0  ?
+          {Object.keys(chat).length > 0  ?
             chat.messages.map((message) => {
               return <Messages key={message.id} message={message} user={user} partner={partner} />
             }) : null }
         </ul>
       </div>
-      <form onSubmit={handleSubmit} >
-        <Input type="text" name="message" value={text} onChange={e => setText(e.target.value)} />
-        <Button colorScheme="teal">Send message</Button>
-      </form>
+      <Box>
+        <form onSubmit={handleSubmit} >
+          <Input type="text" name="message" value={text} onChange={(e) => setText(e.target.value)} />
+          <Button type="submit">Send</Button>
+        </form>
+      </Box>
       </GridItem>
       </Grid>
     </>

@@ -35,7 +35,7 @@ class NotesController < ApplicationController
     end
     
     def note_params
-        params.permit(:user_id, :chatroom_id, :content)
+        params.permit(:id, :user_id, :chatroom_id, :content)
     end
 
 

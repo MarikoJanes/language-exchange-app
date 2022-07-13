@@ -5,6 +5,8 @@ class MessagesChannel < ApplicationCable::Channel
      stream_from "message_#{params[:user_id]}#{params[:recipient_id]}"       
   end
 
+
+  # rebroadcast a message sent by one client to any other connected clients
   def receive(data)
     puts("received the message")
     puts data
@@ -25,9 +27,9 @@ class MessagesChannel < ApplicationCable::Channel
 
   def unsubscribed
     stop_all_streams
-    chatroom = Chatroom.find_by(user_id: params["user_id"])
-      chatroom.update!(params["last_read_at"])
-      render json: chatroom, status: :accepted 
+    #chatroom = Chatroom.find_by(user_id: params["user_id"])
+      #chatroom.update!(params["last_read_at"])
+      #render json: chatroom, status: :accepted 
   end
 
 end

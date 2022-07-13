@@ -5,26 +5,43 @@ import 'react-quill/dist/quill.snow.css';
 
 function Note({ notes, setValue, value }) {
   
-    
-    useAutosave({data: value, onSave: handleSubmit, saveOnUnmount: false});
+    // saveOnUnmount: false}
+    // useAutosave({data: value, onSave: handleAutoSubmit});
 
+    useEffect(() => {
+           
+            console.log("invoked");
+          
+            fetch(`/notes/${notes.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({content : value})
+            })
+            .then(res => res.json())
+            .then(updatedData => console.log("invoked" + updatedData))
+            
 
-    function handleSubmit(data) {
-        fetch(`/notes/${notes.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({content : data})
-        })
-        .then(res => res.json())
-        .then(data => console.log(data))
-    }
+    }, [value])
+
+    // function handleAutoSubmit(data) {
+    //     console.log("invoked");
+
+    //     fetch(`/notes/${notes.id}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({content : data})
+    //     })
+    //     .then(res => res.json())
+    //     .then(updatedData => console.log("invoked" + updatedData))
+    // }
 
   return (
     <div>
-        <ReactQuill theme="snow" value={value} onChange={setValue}/>
-        {/* <Textarea value={content} onChange={e => setContent(e.target.value)} /> */}
+        <ReactQuill theme="snow" value={value} onChange={setValue} />
     </div>
   )
 }

@@ -23,7 +23,17 @@ function ChatListItem({ conversation, userData }) {
         history.push(`/chatrooms/${conversation.id}`);
     }
 
-console.log(partner);
+console.log(conversation.last_read_at);
+
+  const unreadMessages = conversation.messages.filter(mess => {
+     return mess.created_at > conversation.last_read_at
+  });
+
+  const lastMessage = conversation.messages[conversation.messages.length - 1];
+
+  console.log(unreadMessages);
+ 
+
 if(partner === null) return <h2>Loading...</h2>
   return (
     <>
@@ -47,8 +57,13 @@ if(partner === null) return <h2>Loading...</h2>
                 }) : null}
           </Text>
           </Box> 
-
-          <Spacer />
+          <Box>
+            <Text>{lastMessage.content}</Text>
+          </Box>
+          <Box>
+            <Text>{unreadMessages.length > 0 ? unreadMessages.length : null}</Text>
+          </Box>
+          
 
           <Box>
             <Button onClick={handlePageJump} colorScheme="teal" className="chat-btn">Chat</Button>

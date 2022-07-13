@@ -23,13 +23,12 @@ class ChatroomsController < ApplicationController
             render json: reversed_chatroom
         end
 
-        #serialized_data = ActiveModelSerializers::Adapter::Json.new(
-        #    ChatroomSerializer.new(chatroom)
-        #).serializable_hash
-        #ActionCable.server.broadcast "messages_channel", serialized_data
-        #head :ok
+    end
 
-       
+    def update 
+        chatroom = Chatroom.find(params[:id])
+        chatroom.update!(chatroom_params)
+        render json: chatroom, status: :accepted
     end
 
 
