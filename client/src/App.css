@@ -64,8 +64,13 @@
   border-width: 1.5px;
 }
 
+.talk {
+  height: 70vh;
+  overflow: auto;
+}
+
 .message-box {
-  padding: 3%
+  padding: 10px;
 }
 
 .sender-message {
@@ -89,4 +94,13 @@
 .message-container {
   justify-content: end;
   align-items: center;
+}
+
+.ql-toolbar {
+  background: #D9F8C4;
+}
+
+.ql-container {
+  height: 80vh !important;
+  overflow: auto;
 }

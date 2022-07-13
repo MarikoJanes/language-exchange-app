@@ -6,7 +6,6 @@ import { Button, } from "@chakra-ui/react";
 
 function UserNotes({ user, chat }) {
     const [notes, setNotes] = useState({});
-    const [content, setContent] = useState("");
     const [value, setValue] = useState("");
 
 

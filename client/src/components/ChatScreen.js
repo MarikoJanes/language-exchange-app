@@ -102,15 +102,15 @@ function ChatScreen( {user} ) {
 
   return (
     <>
-    <Grid templateColumns='repeat(5, 1fr)' gap={10}>
+    <Grid templateColumns='repeat(5, 1fr)' gap={10} mt={4}>
 
       {/* notes  */}
-      <GridItem colSpan={2}>
+      <GridItem colSpan={2}  ml={5}>
         <UserNotes user={user} chat={chat} />
       </GridItem>
 
       {/* chats */}
-      <GridItem colSpan={3} className="chat-box">
+      <GridItem colSpan={3} className="chat-box" mr={5}>
       <Flex className="name-box">
        
           <Avatar size="md" src={partner.profile_image_url} alt="profile" />
@@ -121,7 +121,7 @@ function ChatScreen( {user} ) {
         
        
       </Flex>
-      <div>
+      <div className="talk">
         <ul>
         
           { 
