@@ -4,9 +4,12 @@ import { Button, } from "@chakra-ui/react";
 
 
 
+
 function UserNotes({ user, chat }) {
     const [notes, setNotes] = useState({});
     const [value, setValue] = useState("");
+
+
 
 
     // get an existing note data
@@ -47,6 +50,8 @@ function UserNotes({ user, chat }) {
         .then(res => res.json())
         .then(data => setNotes(data))
       }
+
+     
 
     // if(Object.keys(notes).length === 0 ) return <h2>Loading...</h2>
   return (

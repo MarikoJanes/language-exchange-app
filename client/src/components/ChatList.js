@@ -8,8 +8,7 @@ import ChatListItem from "./ChatListItem";
 function ChatList({ userData }) {
 
     const [conversations, setConversations] = useState(null);
-    // const cable = useContext(ActionCableContext);
-
+    const cable = useContext(ActionCableContext);
 
     useEffect(() => {
         fetch("/chatrooms")
@@ -23,6 +22,9 @@ function ChatList({ userData }) {
             setConversations(userChatData);        
         })
     }, [])
+
+
+
 
 
     console.log(conversations)

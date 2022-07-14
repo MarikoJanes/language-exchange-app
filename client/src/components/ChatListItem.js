@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useHistory } from "react-router-dom";
 import { Avatar, Box, Text, Badge, Flex, Button, Spacer } from "@chakra-ui/react";
+
+
 
 
 function ChatListItem({ conversation, userData }) {
   const [partner, setPartner] = useState(null);
   const history = useHistory();
+  let timeToRefresh = 0;
+  // const cable = useContext(ActionCableContext);
+   const [messages, setMessages] = useState(conversation.messages);
 
   useEffect(() => {
     let fetchId;
@@ -19,19 +24,44 @@ function ChatListItem({ conversation, userData }) {
     .then(data => setPartner(data));
   }, []);
 
+
+  
+  async function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
+   useEffect(() => {
+    sleep(3000)
+         .then(() =>{
+     if(conversation && userData && partner) {
+       console.log("starting use effect!");
+         
+          timeToRefresh = 10000;
+            console.log("Ready to fetch conversation data");
+           fetch(`/chatrooms/${conversation.id}`)
+           .then(res => res.json())
+           .then(data => setMessages(data.messages))
+         
+         
+     }})
+     }, [messages, userData.id]);
+
     function handlePageJump() {
         history.push(`/chatrooms/${conversation.id}`);
     }
 
-console.log(conversation.last_read_at);
+console.log(conversation.messages);
+ console.log(messages);
 
-  const unreadMessages = conversation.messages.filter(mess => {
+  const unreadMessages = messages.filter(mess => {
      return mess.created_at > conversation.last_read_at
   });
 
-  const lastMessage = conversation.messages[conversation.messages.length - 1];
+  const lastMessage = messages.length > 0 ? messages[messages.length - 1] : undefined;
 
-  console.log(unreadMessages);
+  console.log(lastMessage);
  
 
 if(partner === null) return <h2>Loading...</h2>
@@ -58,7 +88,7 @@ if(partner === null) return <h2>Loading...</h2>
           </Text>
           </Box> 
           <Box>
-            <Text>{lastMessage.content}</Text>
+            <Text>{lastMessage !== undefined ? lastMessage.content : null}</Text>
           </Box>
           <Box>
             <Text>{unreadMessages.length > 0 ? unreadMessages.length : null}</Text>

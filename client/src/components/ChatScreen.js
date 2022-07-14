@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, useRef } from 'react';
 import { useParams } from "react-router-dom";
 import { ActionCableContext } from '../index';
 import { Grid, GridItem, Button, Input, Box, Flex, Text, Avatar  } from '@chakra-ui/react';
@@ -13,8 +13,15 @@ function ChatScreen( {user} ) {
   const [channel, setChannel] = useState(null);
   const [chat, setChat] = useState({});
   const [partner, setPartner] = useState([]);
+  const messagesEndRef = useRef(null)
   const cable = useContext(ActionCableContext);
-  
+
+
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  }, [chat]);
+
   // get a chat data
   useEffect(() => {
     if(user !== null){
@@ -85,7 +92,7 @@ function ChatScreen( {user} ) {
         })
       })
     }
-  }, [user.id, chat.partner_id]);
+  }, [user, chat.partner_id]);
 
   function sendMessages(content) {
     const data = { sender_id: user.id, recipient_id: chat.partner_id, content:content, chatroom: parseInt(id)}
@@ -105,14 +112,14 @@ function ChatScreen( {user} ) {
 
 
 
-  if(chat.id === null) return <h2>Loading...</h2>
+  if(chat.id === null && user == null) return <h2>Loading...</h2>
 
   return (
     <>
-    <Grid templateColumns='repeat(5, 1fr)' gap={10} mt={4}>
+    <Grid templateColumns='repeat(7, 1fr)' gap={10} mt={10}>
 
       {/* notes  */}
-      <GridItem colSpan={2}  ml={5}>
+      <GridItem colSpan={4}  ml={5}>
         <UserNotes user={user} chat={chat} />
       </GridItem>
 
@@ -125,12 +132,12 @@ function ChatScreen( {user} ) {
           </Box>
       </Flex>
       <div className="talk">
-        <ul>
+        
           {Object.keys(chat).length > 0  ?
             chat.messages.map((message) => {
               return <Messages key={message.id} message={message} user={user} partner={partner} />
             }) : null }
-        </ul>
+            <div ref={messagesEndRef} />
       </div>
       <Box>
         <form onSubmit={handleSubmit} >
