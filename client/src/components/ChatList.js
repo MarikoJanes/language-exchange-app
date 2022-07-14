@@ -37,7 +37,7 @@ function ChatList({ userData }) {
             {conversations.length > 0 ? conversations.map(conversation => {
                 return <ChatListItem key={conversation.id} conversation={conversation} userData={userData}/>
             }) : 
-            <Text fontSize="xl">No updates</Text>}
+            <Text mt={20} fontSize="xl">No updates</Text>}
         </ul>
     </div>
   )

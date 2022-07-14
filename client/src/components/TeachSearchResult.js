@@ -21,7 +21,7 @@ console.log(searchResult)
     <>
       <SearchBar />
       <div>
-          <Text ml={4} fontSize='3xl'>Search results for "{temp}": </Text>
+          <Text ml={10} fontSize='3xl'>Search results for "{temp}": </Text>
           {searchResult.length > 0 ? 
               searchResult.map((result, index) => {
                   return <UserCard key={index} result={result} user={user} />

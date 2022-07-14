@@ -12,11 +12,11 @@
 }
 
 .search-bar {
-  width: 60% !important;
+  width: 50% !important;
 }
 
 .chat-btn {
-  margin: auto;
+  margin: 25% auto;
   
 }
 
@@ -40,8 +40,16 @@
 .text-btn {
   border-right-color: teal !important;
   border-right-style: solid !important;
-  border-right-width: 2px;
-  padding-right:5px;
+  border-right-width: 4px;
+ 
+  width: auto;
+  display: block;
+}
+
+.text {
+  width: 100%;
+  justify-content: end;
+  text-align: end;
 }
 
 .lang-btn {
@@ -53,8 +61,13 @@
 }
 
 .round-btn {
-  border-radius: 50% !important;
-  margin-left: 70%;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 70% 0 0 80%;
+  background-color: #4CACBC;
+  font-weight: bold;
+  color: #fff;
 }
 
 .chat-name {
@@ -122,6 +135,10 @@
 
 .chat-card {
   width: 60vw;
+}
+
+.list {
+  margin: 50px auto;
 }
 
 .chat-card-parent {
@@ -203,4 +220,36 @@
 
 .message-box {
   margin: 0 10px;
+}
+
+.form-group {
+  margin-top: 5%;
+  background-color: #CDF0EA;
+  border: 3px dashed #9CB4CC;
+  padding: 1rem;
+  width: 600px;
+  min-height:600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profile-container {
+  margin-top: 30px;
+}
+
+.mypage-btn {
+  margin-top: 55vh;;
+}
+
+.col-container {
+  border-right-width: 1.5px;
+  width: 10vw;
+}
+
+.stack {
+  width: 100%;
 }

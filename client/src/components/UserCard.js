@@ -30,7 +30,7 @@ function UserCard({ result, user }) {
   }
 
   return (
-    <Flex id={result.id} my={8} mx={8} boxShadow="md" padding={5}>
+    <Flex className="chat-card list" id={result.id}  boxShadow="md" padding={5} >
       
       <Avatar size='2xl' src={result.profile_image_url} alt="profile" />
         <Box ml={3}>

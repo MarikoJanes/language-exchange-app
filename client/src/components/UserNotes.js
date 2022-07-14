@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Note from "./Note";
-import { Button, } from "@chakra-ui/react";
+import { Button, Text } from "@chakra-ui/react";
 
 
 
@@ -64,9 +64,9 @@ function UserNotes({ user, chat }) {
 
             </>
             : 
-            <div>
-            <p>Open a note</p>
-            <Button onClick={handleClick} className="round-btn" colorScheme="teal">+</Button>
+            <div className="form-group">
+            <Text fontWeight="bold" fontSize="lg">Open a note</Text>
+            <button onClick={handleClick} className="round-btn">+</button>
             </div>}
     </div>
   )

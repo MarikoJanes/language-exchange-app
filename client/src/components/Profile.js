@@ -105,30 +105,34 @@ function Profile({ user, setUser }) {
 
   return (
     <>
-    <Grid  templateRows='repeat(2, 1fr)' templateColumns='repeat(5, 1fr)' className="profile-container">
-      <GridItem className="profile-bar" rowSpan={2} colSpan={1}>
-        <VStack>
+    <Grid   templateColumns='repeat(5, 1fr)' className="profile-container">
+      <GridItem className="profile-bar col-container"  colSpan={1}>
+        <VStack mr={4} className="stack">
           <Text mb={30} fontSize="2xl" fontWeight="bold">User Profile</Text>
-            <HStack mb={15}>
+            <HStack mb={15} className="text">
               <Box>
                 <VscAccount />
               </Box>
               <Box className={isClicked ? null : "text-btn"}> 
-                <Text onClick={() => setIsClicked(false)}>Profile</Text>
+                <Text  mr={5} onClick={() => setIsClicked(false)}>Profile</Text>
               </Box>
             </HStack>
-            <HStack>
+            <HStack className="text">
               <Box>
                 <VscBook />
               </Box>
               <Box className={isClicked ? "text-btn" : null}>
-                <Text onClick={() => setIsClicked(true)}>Languages</Text>
+                <Text  mr={3} onClick={() => setIsClicked(true)}>Languages</Text>
               </Box>
             </HStack>
+              <Box>
+                <Button className="mypage-btn" colorScheme="gray" onClick={handleJumpPage} >My page</Button>
+              </Box>
         </VStack>
+        
       </GridItem>
       {isClicked === false ? 
-        <GridItem colSpan={4} >
+        <GridItem colSpan={4}  className="profile-container">
      
      <form onSubmit={handleSubmit}>
 
@@ -154,7 +158,7 @@ function Profile({ user, setUser }) {
        
      </form>
      </GridItem> :
-     <GridItem colSpan={4}>
+     <GridItem colSpan={4} className="profile-container">
      
         <LearnLanguages 
             languages={languages} 
@@ -182,12 +186,12 @@ function Profile({ user, setUser }) {
     </GridItem>
       }
       
-
-      <Button mt={30} colorScheme="gray" onClick={handleJumpPage} >My page</Button>
-
+  
+     
         
 
     </Grid>
+ 
     </>
   )
 }
