@@ -91,7 +91,7 @@ if(partner === null) return <h2>Loading...</h2>
          
           <GridItem colSpan={1}  className={unreadMessages.length > 0 ? "unread" : null}>
               
-            <Text>{unreadMessages.length > 0 ? unreadMessages.length : null}</Text>
+            <Text mt={1}>{unreadMessages.length > 0 ? unreadMessages.length : null}</Text>
           </GridItem>
           
           
