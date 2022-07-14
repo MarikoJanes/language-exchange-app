@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState, useRef } from 'react';
 import { useParams } from "react-router-dom";
 import { ActionCableContext } from '../index';
-import { Grid, GridItem, Button, Input, Box, Flex, Text, Avatar  } from '@chakra-ui/react';
+import { Grid, GridItem, Button, Input, Box, Flex, Text, Avatar, Spacer, HStack  } from '@chakra-ui/react';
 import UserNotes from './UserNotes';
 import Messages from './Messages';
 
@@ -139,10 +139,13 @@ function ChatScreen( {user} ) {
             }) : null }
             <div ref={messagesEndRef} />
       </div>
-      <Box>
+      <Box className="message-box">
         <form onSubmit={handleSubmit} >
-          <Input type="text" name="message" value={text} onChange={(e) => setText(e.target.value)} />
-          <Button type="submit">Send</Button>
+            <HStack>
+          <Input className="message-input" type="text" name="message" value={text} onChange={(e) => setText(e.target.value)} />
+          <Spacer />
+          <Button colorScheme="teal" type="submit">Send</Button>
+          </HStack>
         </form>
       </Box>
       </GridItem>

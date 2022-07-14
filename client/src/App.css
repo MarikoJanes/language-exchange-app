@@ -64,15 +64,19 @@
 .name-box {
   padding: 3%;
   border-width: 3px;
+  border: #CDF0EA;
+  background-color: #CDF0EA;
 }
 
 .chat-box {
   border-width: 1.5px;
+  margin-bottom: 30px;
 }
 
 .talk {
   height: 70vh;
   overflow: auto;
+  border-width: 1.5px;
 }
 
 .message-box {
@@ -188,5 +192,15 @@
 }
 
 .page-bottom-1 {
+  margin: 0 10px;
+}
+
+.message-input {
+  width: 80% !important;
+  border-width: 2px;
+  border-color: #CDF0EA;
+}
+
+.message-box {
   margin: 0 10px;
 }

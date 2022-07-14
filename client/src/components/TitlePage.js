@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import { Grid, GridItem, Flex, Image, HStack, Box, Text, Button } from "@chakra-ui/react";
-import Signup from './Signup';
-import TitlePhotos from './TitlePhotos';
+import { Grid, GridItem, Flex, Image, Box, Text, Button } from "@chakra-ui/react";
+
 
 
 function TitlePage({ user }) {
