@@ -31,9 +31,9 @@ function ChatList({ userData }) {
  
     if(conversations === null) return <h2>Loading...</h2>
   return (
-    <div>
-        <Text ml={8} mt={20} fontSize="xl">Notifications for you: </Text>
-        <ul>
+    <div className="list-container">
+        <Text className="notification" mt={20} fontSize="xl">Notifications for you: </Text>
+        <ul className="chat-card-parent">
             {conversations.length > 0 ? conversations.map(conversation => {
                 return <ChatListItem key={conversation.id} conversation={conversation} userData={userData}/>
             }) : 

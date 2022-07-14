@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from "react-router-dom";
-import { Flex, Heading, Input, Button } from "@chakra-ui/react";
+import { Flex, Heading, Input, Button, Grid, GridItem } from "@chakra-ui/react";
+import TitlePhotos from './TitlePhotos';
 
 function Login({ setUser, setIsAuthenticated }) {
   const [username, setUsername] = useState("");
@@ -41,7 +42,14 @@ function Login({ setUser, setIsAuthenticated }) {
 
 
   return (
-    <Flex className="userForm" alignItems="center" justifyContent="center">
+
+    <Grid templateColumns='repeat(8, 1fr)' background="teal.100">
+    <GridItem colSpan={5} className="image-container" ml={10}>
+        <TitlePhotos />
+      
+    </GridItem>
+    <GridItem colSpan={3}>
+    <Flex className="login-form" alignItems="center" justifyContent="center">
       <Flex className="login" direction="column" background="teal.100" p={12} rounded={6}>
         <form onSubmit={handleSubmit}>
           <Heading mb={6} >Login</Heading>
@@ -75,6 +83,8 @@ function Login({ setUser, setIsAuthenticated }) {
         <p style={{color: "gray"}}>Not a member? <Link to="/signup"> Join Now</Link></p>
       </Flex>
     </Flex>
+    </GridItem>
+    </Grid>
   )
 }
 

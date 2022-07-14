@@ -1,4 +1,9 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+
+/* body {
+  background-color: #CDF0EA;
+} */
 
 .image-goes {
   width: 200px !important;
@@ -11,7 +16,8 @@
 }
 
 .chat-btn {
-  top: 25%;
+  margin: auto;
+  
 }
 
 .profile-bar {
@@ -103,4 +109,84 @@
 .ql-container {
   height: 80vh !important;
   overflow: auto;
+}
+
+.notification {
+  text-align: left;
+  margin-left: 20%;
+}
+
+.chat-card {
+  width: 60vw;
+}
+
+.chat-card-parent {
+  display: inline-block;
+  text-align: left; 
+}
+
+.list-container {
+  text-align: center;
+}
+
+.latest-message {
+
+  inline-size: 200px; 
+  overflow: hidden;
+  margin: auto 0 auto 5vw;
+  text-align: center;
+  font-size: 1.6rem;
+  color: gray;
+}
+
+.profile-photo {
+  margin: auto 0;
+}
+
+.langs {
+  margin: auto;
+}
+
+.unread {
+  background-color: #D9F8C4;
+  border-radius: 90px;
+  width: 2vw;
+  height: 3.6vh;
+  margin: auto;
+  text-align: center;
+  font-size: 1.4rem;
+  color: gray;
+}
+
+.login-form {
+  margin-top: 100px;
+}
+
+.carousel-image {
+  width: 1000px;
+  max-height: 85vh;
+
+}
+
+.image-container{
+  margin-top: 50px;
+}
+
+.title-image {
+  height: 80vh;
+  margin-bottom: 50px;
+}
+
+.title {
+  font-family: 'Concert One', cursive;
+  color: #377D71;
+  font-size: 50px;;
+}
+
+.title-text {
+  margin: 20%;
+}
+
+.page-bottom-1 {
+  margin: 0 10px;
 }

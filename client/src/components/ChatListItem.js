@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useHistory } from "react-router-dom";
-import { Avatar, Box, Text, Badge, Flex, Button, Spacer } from "@chakra-ui/react";
-
+import { Avatar, Box, Text, Badge, Flex, Button, Grid, GridItem, VStack } from "@chakra-ui/react";
 
 
 
@@ -9,8 +8,7 @@ function ChatListItem({ conversation, userData }) {
   const [partner, setPartner] = useState(null);
   const history = useHistory();
   let timeToRefresh = 0;
-  // const cable = useContext(ActionCableContext);
-   const [messages, setMessages] = useState(conversation.messages);
+  const [messages, setMessages] = useState(conversation.messages);
 
   useEffect(() => {
     let fetchId;
@@ -52,55 +50,58 @@ function ChatListItem({ conversation, userData }) {
         history.push(`/chatrooms/${conversation.id}`);
     }
 
-console.log(conversation.messages);
- console.log(messages);
-
   const unreadMessages = messages.filter(mess => {
      return mess.created_at > conversation.last_read_at
   });
 
   const lastMessage = messages.length > 0 ? messages[messages.length - 1] : undefined;
 
-  console.log(lastMessage);
- 
 
 if(partner === null) return <h2>Loading...</h2>
   return (
     <>
     {Object.keys(partner).length > 0 ?
-      <Flex my={8} mx={8} boxShadow="md" padding={5}>
-      <Avatar size="xl" src={partner.profile_image_url} alt="profile" />
-        <Box id={partner.id} ml={6}>
-          <Text fontSize="xl" fontWeight="bold">{partner.name}</Text>
-          <Text fontSize="xl">
-            Learning: 
+      
+      <Flex className="chat-card" my={8}  boxShadow="md" padding={5} colSpan={1}>
+      <VStack>
+      <Avatar className="profile-photo" size="xl" src={partner.profile_image_url} alt="profile" />
+      <Text fontSize="xl" fontWeight="bold">{partner.name}</Text>
+      </VStack>
+      <Grid templateColumns='repeat(4, 1fr)'>
+        <GridItem colSpan={1} id={partner.id} ml={6} className="langs">
+         
+          <Text fontSize="lg">
+            Learning: </Text>
               {partner.language_to_learns.length > 0 ?
                 partner.language_to_learns.map(lang => {
                   return <Badge ml={1} fontSize='0.8em' colorScheme="green" key={lang.id}>{lang.name}</Badge>
                 }) : null}
-          </Text>
-          <Text fontSize="xl">
-            Teaching: 
+          
+          <Text fontSize="lg">
+            Teaching: </Text>
               {partner.language_to_teaches.length > 0 ?
                 partner.language_to_teaches.map(lang => {
                   return <Badge ml={1} fontSize='0.8em' colorScheme="pink" key={lang.id}>{lang.name}</Badge>
                 }) : null}
-          </Text>
-          </Box> 
-          <Box>
+          
+          </GridItem> 
+          <GridItem colSpan={1} className="latest-message">
             <Text>{lastMessage !== undefined ? lastMessage.content : null}</Text>
-          </Box>
-          <Box>
+          </GridItem>
+         
+          <GridItem colSpan={1}  className={unreadMessages.length > 0 ? "unread" : null}>
+              
             <Text>{unreadMessages.length > 0 ? unreadMessages.length : null}</Text>
-          </Box>
+          </GridItem>
           
-
-          <Box>
-            <Button onClick={handlePageJump} colorScheme="teal" className="chat-btn">Chat</Button>
-          </Box>
           
-        
-    </Flex>: "no new messages"
+          <GridItem colSpan={1} className="chat-btn">
+            <Button onClick={handlePageJump} colorScheme="teal" >Chat</Button>
+          </GridItem>
+          
+          </Grid>
+    </Flex>
+   : "no new messages"
     }
     </>
   )
