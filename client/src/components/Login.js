@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from "react-router-dom";
+import { Flex, Heading, Input, Button, Grid, GridItem } from "@chakra-ui/react";
+import TitlePhotos from './TitlePhotos';
 
 function Login({ setUser, setIsAuthenticated }) {
   const [username, setUsername] = useState("");
@@ -40,22 +42,49 @@ function Login({ setUser, setIsAuthenticated }) {
 
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
-          <label>username</label>
-          <input type="text" name="username" value={username} placeholder="Username" onChange={e => setUsername(e.target.value)} />
-            <br></br>
-          <label>password</label>
-          <input type="password" name="password" value={password} placeholder="Password" onChange={e => setPassword(e.target.value)} />
-            <br></br>
 
-          {error ? <div style={{color: "red"}} >{error}</div> : null}
+    <Grid templateColumns='repeat(8, 1fr)' background="teal.100">
+    <GridItem colSpan={5} className="image-container" ml={10}>
+        <TitlePhotos />
+      
+    </GridItem>
+    <GridItem colSpan={3}>
+    <Flex className="login-form" alignItems="center" justifyContent="center">
+      <Flex className="login" direction="column" background="teal.100" p={12} rounded={6}>
+        <form onSubmit={handleSubmit}>
+          <Heading mb={6} >Login</Heading>
+            {/* <label>username</label> */}
+            <Input 
+                background="white"
+                mb={3}
+                type="text" 
+                name="username" 
+                value={username} 
+                placeholder="Username" 
+                onChange={e => setUsername(e.target.value)}
+            />
+              <br></br>
+            {/* <label>password</label> */}
+            <Input 
+                background="white"
+                mb={6}
+                type="password" 
+                name="password" 
+                value={password} 
+                placeholder="Password" 
+                onChange={e => setPassword(e.target.value)} 
+            />
+              <br></br>
 
-          <button type="submit">Login</button>
-      </form>
-      <p style={{color: "gray"}}>Not a member? <Link to="/signup"> Join Now</Link></p>
-    </>
+            {error ? <div style={{color: "red"}} >{error}</div> : null}
+
+            <Button mt={3} mb={6} colorScheme="teal" variant='solid' type="submit">Login</Button>
+        </form>
+        <p style={{color: "gray"}}>Not a member? <Link to="/signup"> Join Now</Link></p>
+      </Flex>
+    </Flex>
+    </GridItem>
+    </Grid>
   )
 }
 

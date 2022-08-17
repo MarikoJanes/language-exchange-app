@@ -1,4 +1,8 @@
 Language.destroy_all
+User.destroy_all
+Note.destroy_all
+Messsage.destroy_all
+Chatroom.destroy_all
 
 l1 = Language.create(name: "Arabic")
 l2 = Language.create(name: "Bengali")
@@ -25,3 +29,5 @@ l21 = Language.create(name: "Thai")
 l22 = Language.create(name: "Turkish")
 l23 = Language.create(name: "Urdu")
 l24 = Language.create(name: "Vietnamese")
+
+

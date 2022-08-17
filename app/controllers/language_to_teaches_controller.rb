@@ -17,12 +17,6 @@ class LanguageToTeachesController < ApplicationController
         render json: langArr, status: :created
     end
 
-    # def update 
-    #     lang = find_lang
-    #     lang.update!(lang_params)
-    #     render json: lang, status: :accepted 
-    # end
-
     def destroy 
         lang = find_lang
         lang.destroy 

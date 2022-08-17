@@ -1,5 +1,5 @@
 import React from 'react'
-import { GoTrashcan } from "react-icons/go";
+import { Box, Button, HStack, FormLabel, Tag, TagLabel, TagCloseButton, Select } from "@chakra-ui/react";
 
 function LearnLanguages({ languages, setLearnLang, learnLang, userData, addLearnLang, deleteLearnLang }) {
 
@@ -27,20 +27,6 @@ function LearnLanguages({ languages, setLearnLang, learnLang, userData, addLearn
 
     function handleSubmit(e) {
         e.preventDefault();
-        // for(let i = 0; i < learnLang.length; i++) {
-        //     fetch("/language_to_learns", {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json"
-        //         },
-        //         body: JSON.stringify({
-        //             user_id: userData.id,
-        //             language_id: learnLang[i].id
-        //         })
-        //     })
-        //     .then(res => res.json())
-        //     .then(data => console.log(data));
-        // }
         fetch("/language_to_learns", {
             method: "POST",
             body: JSON.stringify(learnLang) 
@@ -52,39 +38,48 @@ function LearnLanguages({ languages, setLearnLang, learnLang, userData, addLearn
         });
 
     }
-    //debugger
-console.log(userData.language_to_learns)
+
 
   return (
-    <form onSubmit={handleSubmit}>
-         <label>language you want to learn: </label>
-            <select onChange={handleChange}>
-              <option>Choose a language</option>
-              
-                {languages.length > 0 ? languages.map((lang, index) => {
-                  return <option key={index} id={lang.id} value={lang.name}>{lang.name}</option> 
-                }) : null}
-            </select>
+    <>
+        <form onSubmit={handleSubmit}>
+            <FormLabel fontSize="lg">Languages you are learning: </FormLabel>
+                <Select onChange={handleChange}>
+                    <option>Choose a language</option>
+                    
+                        {languages.length > 0 ? languages.map((lang, index) => {
+                        return <option key={index} id={lang.id} value={lang.name}>{lang.name}</option> 
+                        }) : null}
+                </Select>
 
-            <input type="submit" value="Save" />
-        {userData.language_to_learns.length > 0 ? 
-            userData.language_to_learns.map((lang) => {
-                return (
-                    <div key={lang.id} id={lang.id} className="deleteDiv">
-                    <li>{lang.name !== null ? lang.name : "language"}</li>
-                    <button type="button" onClick={handleApiDelete}><GoTrashcan /></button>
-                </div>
-                )
-            }) : null}
-        {learnLang.length > 0 ? learnLang.map((lang, index) => {
-            return (
-                <div key={index}>
-                    <li>{lang.name}</li>
-                    <button type="button" onClick={handleDelete}><GoTrashcan /></button>
-                </div>
-                )
-        }) : null}
-    </form>
+                <HStack mt={3}>
+                    {userData.language_to_learns.length > 0 ? 
+                        userData.language_to_learns.map((lang) => {
+                            return (
+                                <Box key={lang.id} id={lang.id} className="deleteDiv">
+                                    <Tag size="lg" variant="subtle" colorScheme="teal">
+                                        <TagLabel>{lang.name}</TagLabel>
+                                        <TagCloseButton onClick={handleApiDelete}/>
+                                    </Tag>
+                                </Box>
+                            )
+                        }) : null}
+                </HStack>
+                <HStack mt={3}>
+                    {learnLang.length > 0 ? learnLang.map((lang, index) => {
+                        return (
+                            <Box key={index}>
+                                <Tag size="lg" variant="subtle" colorScheme="gray">
+                                    <TagLabel>{lang.name}</TagLabel>
+                                    <TagCloseButton onClick={handleDelete}/>
+                                </Tag>
+                            </Box>
+                            )
+                    }) : null}
+                </HStack>
+            <Button className="lang-btn" type="submit" colorScheme="teal">Update</Button>
+        </form>
+    </>
   )
 }
 

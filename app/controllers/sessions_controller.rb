@@ -16,6 +16,11 @@ class SessionsController < ApplicationController
         end
     end
 
+    def show 
+        user = User.find_by(id: session[:current_user])
+        render json: user
+    end
+
     def logout 
         session.delete :current_user
     end

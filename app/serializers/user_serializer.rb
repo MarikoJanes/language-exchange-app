@@ -3,7 +3,6 @@ class UserSerializer < ActiveModel::Serializer
   has_many :language_to_learns
   has_many :language_to_teaches
 
-
   include Rails.application.routes.url_helpers
 
   def profile_image_url
